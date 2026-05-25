@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourist Activities of Mayalibit Bay · mayalibit.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #1a3a4a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  header {
+    width: 100%;
+    max-width: 1100px;
+    background: #fafaf7;
+    border-bottom: 3px solid #1a3a4a;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #1a3a4a;
+  }
+  .logo span { color: #c8712a; }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #2e5c3a;
+    border: 1.5px solid #2e5c3a;
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Map container */
+  .map-outer {
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+  }
+
+  .map-container {
+    position: relative;
+    width: 100%;
+    /* maintain image aspect ratio 1270 x 952 */
+    padding-bottom: 74.96%;
+    overflow: visible;
+  }
+
+  .map-container img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: block;
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* Hotspot pins */
+  .pin {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .pin-dot {
+    width: 20px;
+    height: 20px;
+    background: #1a3a4a;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    margin: 4px auto 0;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    transition: background 0.15s, transform 0.15s;
+  }
+
+  .pin:hover .pin-dot {
+    background: #c8712a;
+    transform: rotate(-45deg) scale(1.2);
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    background: #fafaf7;
+    border: 2px solid #1a3a4a;
+    border-radius: 6px;
+    padding: 14px 18px;
+    min-width: 210px;
+    max-width: 270px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 1000;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+  }
+
+  .tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tooltip-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: #1a3a4a;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #c8712a;
+  }
+
+  .tooltip-activity {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-bottom: 8px;
+  }
+
+  .tooltip-activity:last-child { margin-bottom: 0; }
+
+  .act-icon {
+    width: 32px;
+    height: 32px;
+    background: #f0e8dc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    border: 1px solid #e0d0b8;
+  }
+
+  .act-text strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1a3a4a;
+    line-height: 1.2;
+  }
+
+  .act-text small {
+    font-size: 0.7rem;
+    color: #888;
+    line-height: 1.3;
+  }
+
+  .hint {
+    color: #6a9aaa;
+    font-size: 0.72rem;
+    font-style: italic;
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #2d5f6e;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">mayalibit<span>.com</span></div>
+  <div class="tag">Reef Guardian e.V.</div>
+</header>
+
+<div class="map-outer">
+  <div class="map-container">
+    <img src="mayalibit-map.jpg" alt="Tourist Activities of Mayalibit Bay">
+
+    <!-- Pins: left% = x position, top% = y position of pin tip -->
+    <!-- Go -->
+    <div class="pin" style="left:35.2%;top:21.5%" data-loc="go">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Kabilol -->
+    <div class="pin" style="left:26.5%;top:35.5%" data-loc="kabilol">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Waifoi -->
+    <div class="pin" style="left:51.5%;top:28.5%" data-loc="waifoi">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Beo -->
+    <div class="pin" style="left:37.5%;top:41.5%" data-loc="beo">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Arawai -->
+    <div class="pin" style="left:22.0%;top:44.5%" data-loc="arawai">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Warimak -->
+    <div class="pin" style="left:54.5%;top:42.5%" data-loc="warimak">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Kalitoko -->
+    <div class="pin" style="left:62.5%;top:63.5%" data-loc="kalitoko">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Warsambin -->
+    <div class="pin" style="left:71.5%;top:77.0%" data-loc="warsambin">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Lopintol -->
+    <div class="pin" style="left:72.5%;top:88.0%" data-loc="lopintol">
+      <div class="pin-dot"></div>
+    </div>
+
+    <!-- Mumes -->
+    <div class="pin" style="left:87.5%;top:82.5%" data-loc="mumes">
+      <div class="pin-dot"></div>
+    </div>
+  </div>
+
+  <div class="hint">↑ Fahre über einen Ort für Aktivitäten · Hover over a village for activities</div>
+</div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-name" id="tt-name"></div>
+  <div id="tt-activities"></div>
+</div>
+
+<script>
+const data = {
+  go: {
+    name: "Go",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+    ]
+  },
+  kabilol: {
+    name: "Kabilol",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+    ]
+  },
+  waifoi: {
+    name: "Waifoi",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🦜", name: "Bird Watching", sub: "Tem mani · Pengamatan burung" },
+      { icon: "🥾", name: "Hiking", sub: "Sa · Lintas alam" },
+      { icon: "🥁", name: "Cultural Heritage", sub: "Le imtolon · Warisan budaya" }
+    ]
+  },
+  beo: {
+    name: "Beo",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+    ]
+  },
+  arawai: {
+    name: "Arawai",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🔭", name: "Viewpoint", sub: "Iyamunta tem · Titik pandang" }
+    ]
+  },
+  warimak: {
+    name: "Warimak",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🦜", name: "Bird Watching", sub: "Tem mani · Pengamatan burung" },
+      { icon: "🥾", name: "Hiking", sub: "Sa · Lintas alam" }
+    ]
+  },
+  kalitoko: {
+    name: "Kalitoko",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+    ]
+  },
+  warsambin: {
+    name: "Warsambin",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🏊", name: "Swimming – Kali Biru", sub: "Hla · Berenang" }
+    ]
+  },
+  lopintol: {
+    name: "Lopintol",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🤿", name: "Snorkeling", sub: "Hlanaron · Snorkeling" }
+    ]
+  },
+  mumes: {
+    name: "Mumes",
+    activities: [
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+    ]
+  }
+};
+
+const tooltip = document.getElementById('tooltip');
+const ttName = document.getElementById('tt-name');
+const ttAct = document.getElementById('tt-activities');
+
+document.querySelectorAll('.pin').forEach(pin => {
+  pin.addEventListener('mouseenter', function(e) {
+    const loc = data[this.dataset.loc];
+    if (!loc) return;
+    ttName.textContent = loc.name;
+    ttAct.innerHTML = loc.activities.map(a => `
+      <div class="tooltip-activity">
+        <div class="act-icon">${a.icon}</div>
+        <div class="act-text">
+          <strong>${a.name}</strong>
+          <small>${a.sub}</small>
+        </div>
+      </div>
+    `).join('');
+    tooltip.classList.add('visible');
+    move(e);
+  });
+  pin.addEventListener('mousemove', move);
+  pin.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+});
+
+function move(e) {
+  const w = tooltip.offsetWidth || 230;
+  const h = tooltip.offsetHeight || 150;
+  let x = e.clientX + 18;
+  let y = e.clientY - 20;
+  if (x + w > window.innerWidth - 8) x = e.clientX - w - 18;
+  if (y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
+  if (y < 8) y = 8;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+</script>
+</body>
+</html>
