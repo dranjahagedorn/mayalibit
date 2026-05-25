@@ -161,12 +161,17 @@ const data = {
 };
 
 /* =====================================================
-   Ab hier nichts ändern
+   JS
    ===================================================== */
 const tooltip  = document.getElementById('tooltip');
 const ttName   = document.getElementById('tt-name');
 const ttDesc   = document.getElementById('tt-desc');
 const ttAct    = document.getElementById('tt-activities');
+const detailPanel = document.getElementById('detail-panel');
+const detailClose = document.getElementById('detail-close');
+const detailName = document.getElementById('detail-name');
+const detailDesc = document.getElementById('detail-desc');
+const detailActivities = document.getElementById('detail-activities');
 
 document.querySelectorAll('.hotspot').forEach(hs => {
   hs.addEventListener('mouseenter', function(e) {
@@ -188,6 +193,24 @@ document.querySelectorAll('.hotspot').forEach(hs => {
   });
   hs.addEventListener('mousemove', move);
   hs.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+  hs.addEventListener('click', function() {
+  const loc = data[this.dataset.loc];
+  if (!loc) return;
+
+  detailName.textContent = loc.name;
+  detailDesc.textContent = loc.desc || "Explore local activities, village life, and nature-based experiences in Mayalibit Bay.";
+
+  detailActivities.innerHTML = loc.activities.map(a => `
+    <div class="tooltip-activity">
+      <div class="act-icon">${a.icon}</div>
+      <div class="act-text">
+        <strong>${a.name}</strong>
+        <small>${a.sub}</small>
+      </div>
+    </div>
+  `).join('');
+
+  detailPanel.classList.add('visible');
 });
 
 function move(e) {
@@ -201,6 +224,10 @@ function move(e) {
   tooltip.style.left = x + 'px';
   tooltip.style.top  = y + 'px';
 }
+
+detailClose.addEventListener('click', () => {
+  detailPanel.classList.remove('visible');
+});
 </script>
 </body>
 </html>
