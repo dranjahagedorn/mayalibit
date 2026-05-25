@@ -1,6 +1,23 @@
 /* ========================================
    RESET & GLOBAL
 ======================================== */
+:root {
+  --ocean-dark: #1a3a4a;
+  --ocean-mid: #234b5d;
+
+  --sand: #fafaf7;
+  --sand-soft: #f0e8dc;
+
+  --accent: #c8712a;
+
+  --forest: #2e5c3a;
+
+  --text-dark: #1a3a4a;
+  --text-light: #888;
+
+  --shadow-heavy: 0 20px 60px rgba(0,0,0,0.5);
+  --shadow-soft: 0 8px 28px rgba(0,0,0,0.22);
+}
 
 * {
   margin: 0;
@@ -10,7 +27,7 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background: #1a3a4a;
+  background: var(--ocean-dark);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
