@@ -1,35 +1,26 @@
 /* ========================================
-   RESET & GLOBAL
+   RESET & VARIABLES
 ======================================== */
-
 :root {
-  --ocean-dark: #1a3a4a;
-  --ocean-mid: #234b5d;
-
-  --sand: #fafaf7;
-  --sand-soft: #f0e8dc;
-
-  --accent: #c8712a;
-
-  --forest: #2e5c3a;
-
-  --text-dark: #1a3a4a;
-  --text-light: #888;
-
-  --shadow-heavy: 0 20px 60px rgba(0,0,0,0.5);
-  --shadow-soft: 0 8px 28px rgba(0,0,0,0.22);
+  --ocean-dark:  #1a3a4a;
+  --ocean-mid:   #234b5d;
+  --sand:        #fafaf7;
+  --sand-soft:   #f0e8dc;
+  --accent:      #c8712a;
+  --forest:      #2e5c3a;
+  --text-dark:   #1a2e3a;
+  --text-mid:    #4a5a64;
+  --text-light:  #888;
+  --shadow-heavy: 0 20px 60px rgba(0,0,0,0.45);
+  --shadow-soft:  0 8px 28px rgba(0,0,0,0.18);
+  --radius-panel: 16px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Lato', sans-serif;
-  background:
-    radial-gradient(circle at top, var(--ocean-mid) 0%, var(--ocean-dark) 65%);
+  background: radial-gradient(circle at top, var(--ocean-mid) 0%, var(--ocean-dark) 65%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -41,35 +32,91 @@ body {
 /* ========================================
    HEADER
 ======================================== */
-
 header {
   width: 100%;
   max-width: 1100px;
-  background: rgba(250,250,247,0.95);
-  backdrop-filter: blur(6px);
-  padding: 14px 24px;
+  background: rgba(250,250,247,0.97);
+  backdrop-filter: blur(8px);
+  padding: 14px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0;
+  gap: 16px;
   border-radius: 10px 10px 0 0;
-  border-bottom: 3px solid var(--accent);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-bottom: 2px solid rgba(200,113,42,0.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 160px;
 }
 
 .logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--text-dark);
+  letter-spacing: 0.05em;
+}
+
+.logo-sub {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+}
+
+.main-nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--text-mid);
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
   letter-spacing: 0.02em;
 }
 
-.logo span {
-  color: var(--accent);
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text-dark);
+  border-bottom-color: var(--accent);
 }
 
-.tag {
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+  justify-content: flex-end;
+}
+
+.lang-btn {
+  font-family: 'Lato', sans-serif;
   font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: var(--ocean-dark);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lang-btn:hover { background: var(--ocean-mid); }
+
+.tag {
+  font-size: 0.68rem;
   font-weight: 700;
   color: var(--forest);
   border: 1.5px solid var(--forest);
@@ -77,13 +124,11 @@ header {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 999px;
-  background: rgba(255,255,255,0.5);
 }
 
 /* ========================================
-   MAP LAYOUT
+   MAP
 ======================================== */
-
 .map-outer {
   width: 100%;
   max-width: 1100px;
@@ -101,33 +146,21 @@ header {
 
 .map-container img {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   display: block;
   border-radius: 0 0 10px 10px;
-
-  filter:
-    sepia(0.32)
-    hue-rotate(3deg)
-    brightness(1.03)
-    contrast(0.97)
-    saturate(1.05);
-
-  transition:
-    transform 0.8s ease,
-    filter 0.5s ease;
+  filter: sepia(0.32) hue-rotate(3deg) brightness(1.03) contrast(0.97) saturate(1.05);
+  transition: transform 0.8s ease;
 }
 
 .map-container:hover img {
-  transform: scale(1.015);
+  transform: scale(1.012);
 }
 
 /* ========================================
    HOTSPOTS
 ======================================== */
-
 .hotspot {
   position: absolute;
   width: 4%;
@@ -141,71 +174,81 @@ header {
   content: "";
   position: absolute;
   inset: 50%;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: rgba(200,113,42,0.22);
-  animation: pulse 2.6s infinite;
+  background: rgba(200,113,42,0.2);
+  animation: pulse 2.8s infinite;
 }
 
 .hotspot::after {
   content: "";
   position: absolute;
   inset: 50%;
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: var(--accent);
   border: 2px solid white;
-  box-shadow: 0 0 14px rgba(200,113,42,0.8);
+  box-shadow: 0 0 12px rgba(200,113,42,0.7);
+  transition: transform 0.15s;
 }
 
 .hotspot:hover::after {
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.3);
 }
 
 @keyframes pulse {
-  0% {
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0.7;
-  }
-
-  70% {
-    transform: translate(-50%, -50%) scale(2.2);
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  0%   { transform: translate(-50%,-50%) scale(0.8); opacity: 0.7; }
+  70%  { transform: translate(-50%,-50%) scale(2.4); opacity: 0; }
+  100% { opacity: 0; }
 }
 
 /* ========================================
-   TOOLTIP
+   MAP HINT
 ======================================== */
+.map-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(250,250,247,0.92);
+  backdrop-filter: blur(6px);
+  color: var(--text-dark);
+  font-size: 0.82rem;
+  padding: 10px 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+  pointer-events: none;
+  z-index: 20;
+}
 
+.map-hint-icon {
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   TOOLTIP (hover)
+======================================== */
 .tooltip {
   position: fixed;
   background: rgba(250,250,247,0.97);
   backdrop-filter: blur(8px);
-  border: 2px solid rgba(26,58,74,0.15);
+  border: 1.5px solid rgba(26,58,74,0.12);
   border-radius: 14px;
-  padding: 18px 20px;
-  min-width: 240px;
-  max-width: 320px;
+  padding: 16px 18px;
+  min-width: 220px;
+  max-width: 290px;
   pointer-events: none;
-
   opacity: 0;
   transform: translateY(8px);
-
-  transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
-
+  transition: opacity 0.16s ease, transform 0.16s ease;
   z-index: 1000;
-
   box-shadow: var(--shadow-soft);
 }
 
@@ -216,35 +259,35 @@ header {
 
 .tooltip-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: var(--text-dark);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .tooltip-desc {
-  font-size: 0.8rem;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid rgba(200,113,42,0.25);
+  font-size: 0.78rem;
+  color: var(--text-mid);
   font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid rgba(200,113,42,0.2);
 }
+.tooltip-desc:empty { display: none; }
 
-.tooltip-desc:empty {
-  display: none;
-}
-
+/* ========================================
+   ACTIVITY ROW (shared tooltip + panel)
+======================================== */
 .tooltip-activity {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: rgba(240,232,220,0.5);
 }
-
-.tooltip-activity:last-child {
-  margin-bottom: 0;
-}
+.tooltip-activity:last-child { margin-bottom: 0; }
 
 .act-icon {
   width: 34px;
@@ -256,52 +299,40 @@ header {
   justify-content: center;
   font-size: 16px;
   flex-shrink: 0;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .act-text strong {
   display: block;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-dark);
-  line-height: 1.35;
 }
 
 .act-text small {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-light);
 }
 
 /* ========================================
-   MAP HINT
+   DETAIL PANEL (click)
 ======================================== */
-
-.hint {
-  color: rgba(255,255,255,0.7);
-  font-size: 0.74rem;
-  font-style: italic;
-  text-align: right;
-  margin-top: 10px;
-  letter-spacing: 0.02em;
-}
-/* ========================================
-   DETAIL PANEL
-======================================== */
-
 .detail-panel {
   position: fixed;
-  top: 110px;
-  right: 28px;
-  width: 320px;
+  top: 100px;
+  right: 24px;
+  width: 310px;
   max-width: calc(100vw - 40px);
-  background: rgba(250,250,247,0.97);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  background: rgba(250,250,247,0.98);
   color: var(--text-dark);
-  border-radius: 18px;
-  padding: 22px;
+  border-radius: var(--radius-panel);
+  padding: 24px 22px;
   box-shadow: var(--shadow-heavy);
   z-index: 900;
   opacity: 0;
-  transform: translateX(24px);
+  transform: translateX(20px);
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
@@ -314,75 +345,101 @@ header {
 
 .detail-close {
   position: absolute;
-  top: 10px;
-  right: 14px;
+  top: 12px;
+  right: 16px;
+  background: rgba(26,58,74,0.08);
   border: none;
-  background: transparent;
-  font-size: 1.7rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
   line-height: 1;
   color: var(--text-dark);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
 }
+.detail-close:hover { background: rgba(26,58,74,0.15); }
 
 .detail-kicker {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .detail-panel h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.65rem;
-  margin-bottom: 8px;
+  font-size: 1.8rem;
+  color: var(--text-dark);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.detail-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 14px;
+  border-radius: 2px;
 }
 
 .detail-panel p {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: #555;
-  margin-bottom: 16px;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-mid);
+  margin-bottom: 18px;
+  font-style: italic;
 }
 
-.detail-panel .tooltip-activity {
-  background: rgba(240,232,220,0.65);
-  border-radius: 12px;
-  padding: 10px;
+/* Photo */
+.detail-photo {
+  margin-top: 18px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+}
+
+.detail-photo img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
 }
 
 /* ========================================
    RESPONSIVE
 ======================================== */
-
 @media (max-width: 768px) {
-
-  body {
-    padding: 12px;
-  }
+  body { padding: 10px; }
 
   header {
+    flex-wrap: wrap;
     padding: 12px 14px;
-    border-radius: 10px 10px 0 0;
+    gap: 10px;
   }
 
-  .logo {
-    font-size: 1.1rem;
+  .main-nav { display: none; }
+
+  .tag { display: none; }
+
+  .detail-panel {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+    max-height: 60vh;
+    transform: translateY(20px);
   }
 
-  .tag {
-    display: none;
+  .detail-panel.visible {
+    transform: translateY(0);
   }
-
-  .tooltip {
-    min-width: 210px;
-    max-width: 240px;
-    padding: 14px;
-  }
-
-  .tooltip-name {
-    font-size: 1.1rem;
-  }
-
 }
