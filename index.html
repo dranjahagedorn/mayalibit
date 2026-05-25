@@ -22,13 +22,13 @@
     width: 100%;
     max-width: 1100px;
     background: #fafaf7;
-    border-bottom: 3px solid #1a3a4a;
     padding: 12px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 0;
     border-radius: 4px 4px 0 0;
+    border-bottom: 3px solid #c8712a;
   }
 
   .logo {
@@ -52,15 +52,16 @@
   .map-outer {
     width: 100%;
     max-width: 1100px;
-    position: relative;
   }
 
   .map-container {
     position: relative;
     width: 100%;
-    /* maintain image aspect ratio 1270 x 952 */
-    padding-bottom: 74.96%;
+    /* 2835/3780 = 75% */
+    padding-bottom: 75%;
     overflow: visible;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
 
   .map-container img {
@@ -69,33 +70,25 @@
     width: 100%; height: 100%;
     display: block;
     border-radius: 0 0 4px 4px;
+    /* CSS filter: warm tint to match site colors */
+    filter: sepia(0.45) hue-rotate(5deg) brightness(1.02) contrast(0.95);
   }
 
-  /* Hotspot pins */
-  .pin {
+  /* Invisible hotspot over each map pin */
+  .hotspot {
     position: absolute;
-    width: 28px;
-    height: 28px;
-    transform: translate(-50%, -100%);
+    width: 4%;
+    height: 6%;
+    transform: translate(-50%, -85%);
     cursor: pointer;
     z-index: 10;
+    /* uncomment to debug positions: */
+    /* background: rgba(255,0,0,0.3); */
   }
 
-  .pin-dot {
-    width: 20px;
-    height: 20px;
-    background: #1a3a4a;
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    margin: 4px auto 0;
-    border: 2px solid white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-    transition: background 0.15s, transform 0.15s;
-  }
-
-  .pin:hover .pin-dot {
-    background: #c8712a;
-    transform: rotate(-45deg) scale(1.2);
+  .hotspot:hover ~ .map-container img,
+  .map-container:has(.hotspot:hover) img {
+    /* subtle highlight - handled via JS */
   }
 
   /* Tooltip */
@@ -104,15 +97,15 @@
     background: #fafaf7;
     border: 2px solid #1a3a4a;
     border-radius: 6px;
-    padding: 14px 18px;
-    min-width: 210px;
-    max-width: 270px;
+    padding: 16px 20px;
+    min-width: 230px;
+    max-width: 300px;
     pointer-events: none;
     opacity: 0;
     transform: translateY(6px);
     transition: opacity 0.18s ease, transform 0.18s ease;
     z-index: 1000;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.22);
   }
 
   .tooltip.visible {
@@ -122,11 +115,24 @@
 
   .tooltip-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     color: #1a3a4a;
+    margin-bottom: 4px;
+  }
+
+  /* Village description text */
+  .tooltip-desc {
+    font-size: 0.78rem;
+    color: #555;
+    line-height: 1.5;
     margin-bottom: 10px;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #c8712a;
+    font-style: italic;
+  }
+
+  .tooltip-desc:empty {
+    display: none;
   }
 
   .tooltip-activity {
@@ -135,7 +141,6 @@
     gap: 9px;
     margin-bottom: 8px;
   }
-
   .tooltip-activity:last-child { margin-bottom: 0; }
 
   .act-icon {
@@ -156,13 +161,12 @@
     font-size: 0.82rem;
     font-weight: 700;
     color: #1a3a4a;
-    line-height: 1.2;
+    line-height: 1.3;
   }
 
   .act-text small {
     font-size: 0.7rem;
     color: #888;
-    line-height: 1.3;
   }
 
   .hint {
@@ -170,9 +174,7 @@
     font-size: 0.72rem;
     font-style: italic;
     text-align: right;
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px solid #2d5f6e;
+    margin-top: 8px;
   }
 </style>
 </head>
@@ -187,148 +189,154 @@
   <div class="map-container">
     <img src="mayalibit-map.png" alt="Tourist Activities of Mayalibit Bay">
 
-    <!-- Pins: left% = x position, top% = y position of pin tip -->
-    <!-- Go -->
-    <div class="pin" style="left:35.2%;top:21.5%" data-loc="go">
-      <div class="pin-dot"></div>
-    </div>
+    <!--
+    =====================================================
+    HOTSPOT POSITIONS
+    left% = horizontal center of the map pin
+    top%  = bottom tip of the map pin
+    Adjust these values if a hotspot feels off.
+    =====================================================
+    -->
 
-    <!-- Kabilol -->
-    <div class="pin" style="left:26.5%;top:35.5%" data-loc="kabilol">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Waifoi -->
-    <div class="pin" style="left:51.5%;top:28.5%" data-loc="waifoi">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Beo -->
-    <div class="pin" style="left:37.5%;top:41.5%" data-loc="beo">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Arawai -->
-    <div class="pin" style="left:22.0%;top:44.5%" data-loc="arawai">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Warimak -->
-    <div class="pin" style="left:54.5%;top:42.5%" data-loc="warimak">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Kalitoko -->
-    <div class="pin" style="left:62.5%;top:63.5%" data-loc="kalitoko">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Warsambin -->
-    <div class="pin" style="left:71.5%;top:77.0%" data-loc="warsambin">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Lopintol -->
-    <div class="pin" style="left:72.5%;top:88.0%" data-loc="lopintol">
-      <div class="pin-dot"></div>
-    </div>
-
-    <!-- Mumes -->
-    <div class="pin" style="left:87.5%;top:82.5%" data-loc="mumes">
-      <div class="pin-dot"></div>
-    </div>
+    <div class="hotspot" style="left:36.5%; top:24.5%" data-loc="go"></div>
+    <div class="hotspot" style="left:27.8%; top:36.5%" data-loc="kabilol"></div>
+    <div class="hotspot" style="left:51.8%; top:29.5%" data-loc="waifoi"></div>
+    <div class="hotspot" style="left:38.8%; top:43.5%" data-loc="beo"></div>
+    <div class="hotspot" style="left:23.2%; top:46.0%" data-loc="arawai"></div>
+    <div class="hotspot" style="left:54.5%; top:44.0%" data-loc="warimak"></div>
+    <div class="hotspot" style="left:62.8%; top:65.0%" data-loc="kalitoko"></div>
+    <div class="hotspot" style="left:72.0%; top:78.5%" data-loc="warsambin"></div>
+    <div class="hotspot" style="left:73.2%; top:89.5%" data-loc="lopintol"></div>
+    <div class="hotspot" style="left:88.5%; top:84.5%" data-loc="mumes"></div>
   </div>
-
-  <div class="hint">↑ Fahre über einen Ort für Aktivitäten · Hover over a village for activities</div>
+  <div class="hint">↑ Hover über einen Ort für Aktivitäten · Hover over a village for activities</div>
 </div>
 
 <!-- Tooltip -->
 <div class="tooltip" id="tooltip">
   <div class="tooltip-name" id="tt-name"></div>
+  <div class="tooltip-desc" id="tt-desc"></div>
   <div id="tt-activities"></div>
 </div>
 
 <script>
+/*
+  =====================================================
+  ORTSDATEN – hier kannst du alles bearbeiten!
+
+  Für jeden Ort:
+  - name: Ortsname (wird im Popup angezeigt)
+  - desc: Beschreibung des Ortes (1-3 Sätze) – einfach Text eintragen
+  - activities: Liste der Aktivitäten mit Icon, Name und Ambel/Indonesisch
+
+  Icons: 🏡 🤿 🏊 🥾 🥁 🔭 🦜
+  =====================================================
+*/
 const data = {
   go: {
     name: "Go",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Homestay" }
     ]
   },
   kabilol: {
     name: "Kabilol",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Homestay" }
     ]
   },
   waifoi: {
     name: "Waifoi",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
-      { icon: "🦜", name: "Bird Watching", sub: "Tem mani · Pengamatan burung" },
-      { icon: "🥾", name: "Hiking", sub: "Sa · Lintas alam" },
-      { icon: "🥁", name: "Cultural Heritage", sub: "Le imtolon · Warisan budaya" }
+      { icon: "🏡", name: "Homestay",          sub: "Nowtato · Homestay" },
+      { icon: "🦜", name: "Bird Watching",      sub: "Tem mani · Pengamatan burung" },
+      { icon: "🥾", name: "Hiking",             sub: "Sa · Lintas alam" },
+      { icon: "🥁", name: "Cultural Heritage",  sub: "Le imtolon · Warisan budaya" }
     ]
   },
   beo: {
     name: "Beo",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Homestay" }
     ]
   },
   arawai: {
     name: "Arawai",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
-      { icon: "🔭", name: "Viewpoint", sub: "Iyamunta tem · Titik pandang" }
+      { icon: "🏡", name: "Homestay",   sub: "Nowtato · Homestay" },
+      { icon: "🔭", name: "Viewpoint",  sub: "Iyamunta tem · Gardu Pandang" }
     ]
   },
   warimak: {
     name: "Warimak",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🏡", name: "Homestay",      sub: "Nowtato · Homestay" },
       { icon: "🦜", name: "Bird Watching", sub: "Tem mani · Pengamatan burung" },
-      { icon: "🥾", name: "Hiking", sub: "Sa · Lintas alam" }
+      { icon: "🥾", name: "Hiking",        sub: "Sa · Lintas alam" }
     ]
   },
   kalitoko: {
     name: "Kalitoko",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Homestay" }
     ]
   },
   warsambin: {
     name: "Warsambin",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🏡", name: "Homestay",             sub: "Nowtato · Homestay" },
       { icon: "🏊", name: "Swimming – Kali Biru", sub: "Hla · Berenang" }
     ]
   },
   lopintol: {
     name: "Lopintol",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" },
+      { icon: "🏡", name: "Homestay",   sub: "Nowtato · Homestay" },
       { icon: "🤿", name: "Snorkeling", sub: "Hlanaron · Snorkeling" }
     ]
   },
   mumes: {
     name: "Mumes",
+    // ↓ Beschreibung hier eintragen:
+    desc: "",
     activities: [
-      { icon: "🏡", name: "Homestay", sub: "Nowtato · Rumah singgah" }
+      { icon: "🏡", name: "Homestay", sub: "Nowtato · Homestay" }
     ]
   }
 };
 
-const tooltip = document.getElementById('tooltip');
-const ttName = document.getElementById('tt-name');
-const ttAct = document.getElementById('tt-activities');
+/* =====================================================
+   Ab hier nichts ändern
+   ===================================================== */
+const tooltip  = document.getElementById('tooltip');
+const ttName   = document.getElementById('tt-name');
+const ttDesc   = document.getElementById('tt-desc');
+const ttAct    = document.getElementById('tt-activities');
 
-document.querySelectorAll('.pin').forEach(pin => {
-  pin.addEventListener('mouseenter', function(e) {
+document.querySelectorAll('.hotspot').forEach(hs => {
+  hs.addEventListener('mouseenter', function(e) {
     const loc = data[this.dataset.loc];
     if (!loc) return;
     ttName.textContent = loc.name;
+    ttDesc.textContent = loc.desc;
     ttAct.innerHTML = loc.activities.map(a => `
       <div class="tooltip-activity">
         <div class="act-icon">${a.icon}</div>
@@ -341,20 +349,20 @@ document.querySelectorAll('.pin').forEach(pin => {
     tooltip.classList.add('visible');
     move(e);
   });
-  pin.addEventListener('mousemove', move);
-  pin.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+  hs.addEventListener('mousemove', move);
+  hs.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
 });
 
 function move(e) {
-  const w = tooltip.offsetWidth || 230;
-  const h = tooltip.offsetHeight || 150;
+  const w = tooltip.offsetWidth  || 250;
+  const h = tooltip.offsetHeight || 160;
   let x = e.clientX + 18;
   let y = e.clientY - 20;
-  if (x + w > window.innerWidth - 8) x = e.clientX - w - 18;
+  if (x + w > window.innerWidth  - 8) x = e.clientX - w - 18;
   if (y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
   if (y < 8) y = 8;
   tooltip.style.left = x + 'px';
-  tooltip.style.top = y + 'px';
+  tooltip.style.top  = y + 'px';
 }
 </script>
 </body>
