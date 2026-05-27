@@ -56,7 +56,6 @@ function renderHeader() {
   document.getElementById('site-header').innerHTML = `
     <div>
       <div class="brand-name">MAYALIBIT BAY TOURISM</div>
-      <div class="brand-sub">Reef Guardian e.V.</div>
     </div>
     <nav>
       ${nav.map(n => `
