@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conservation · Mayalibit Bay</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:         #EDEAE3;
+    --navy:       #1A2E3C;
+    --gold:       #B8915A;
+    --white:      #ffffff;
+    --border:     rgba(26,46,60,.09);
+    --text-muted: rgba(26,46,60,.55);
+  }
+  html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); }
+
+  header#site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 60px;
+    background: var(--bg); border-bottom: 0.5px solid var(--border);
+    position: relative; z-index: 10;
+  }
+  .brand-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; letter-spacing: .05em; color: var(--navy); line-height: 1.1; }
+  .brand-sub  { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: rgba(26,46,60,.48); }
+  nav { display: flex; align-items: center; }
+  .nav-link {
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400;
+    color: var(--navy); opacity: .52; padding: 6px 16px;
+    border: none; background: none; cursor: pointer; position: relative;
+    letter-spacing: .01em; transition: opacity .2s; text-decoration: none; display: inline-block;
+  }
+  .nav-link:hover { opacity: .8; }
+  .nav-link.active { opacity: 1; font-weight: 500; }
+  .nav-link.active::after {
+    content: ''; position: absolute; bottom: -1px; left: 16px; right: 16px;
+    height: 1.5px; background: var(--navy); border-radius: 1px;
+  }
+  .header-right { display: flex; align-items: center; gap: 8px; }
+  .lang-btn {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+    color: var(--navy); border: 0.5px solid rgba(26,46,60,.25);
+    background: none; border-radius: 20px; padding: 5px 12px;
+    cursor: pointer; letter-spacing: .06em; transition: background .15s;
+  }
+  .lang-btn:hover { background: rgba(26,46,60,.06); }
+  .lang-btn.active { background: var(--navy); color: var(--bg); }
+
+  main {
+    max-width: 800px; margin: 60px auto; padding: 0 32px;
+  }
+  main h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .gold-bar { width: 32px; height: 1.5px; background: var(--gold); border-radius: 1px; margin-bottom: 24px; }
+  main p { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
+</style>
+</head>
+<body data-page="conservation">
+
+<header id="site-header"></header>
+
+<main>
+  <h1 data-i18n-en="Conservation" data-i18n-id="Konservasi">Conservation</h1>
+  <div class="gold-bar"></div>
+  <p data-i18n-en="Learn about our conservation work in the Mayalibit Bay area." data-i18n-id="Pelajari tentang pekerjaan konservasi kami di area Teluk Mayalibit.">Learn about our conservation work in the Mayalibit Bay area.</p>
+</main>
+
+<script src="header.js"></script>
+<script>
+  // Simple i18n for page-specific content
+  document.addEventListener('DOMContentLoaded', () => {
+    function applyPageLang(lang) {
+      document.querySelectorAll('[data-i18n-en]').forEach(el => {
+        el.textContent = lang === 'id' ? el.getAttribute('data-i18n-id') : el.getAttribute('data-i18n-en');
+      });
+    }
+    applyPageLang(currentLang);
+    const origSetLang = setLang;
+    window.setLang = function(lang) { origSetLang(lang); applyPageLang(lang); };
+  });
+</script>
+</body>
+</html>
