@@ -1,77 +1,57 @@
 // ── Shared header ─────────────────────────────────────────────────────
-// Include this script in every page. It renders the header and handles
-// language switching. The active nav link is set via data-page attribute
-// on the <body> tag, e.g. <body data-page="villages">
+// Include via <script src="header.js"></script> before </body>
+// Set active page via <body data-page="explore|villages|activities|about|conservation">
 
-const i18n = {
-  en: {
-    nav_explore:      "Explore",
-    nav_villages:     "Villages",
-    nav_activities:   "Activities",
-    nav_about:        "About",
-    nav_conservation: "Conservation",
-    hint:             "Click on a village to discover more",
-    kicker:           "Village",
-    photo_label:      "Village photo",
-  },
-  id: {
-    nav_explore:      "Jelajahi",
-    nav_villages:     "Desa",
-    nav_activities:   "Aktivitas",
-    nav_about:        "Tentang",
-    nav_conservation: "Konservasi",
-    hint:             "Klik desa untuk mengetahui lebih lanjut",
-    kicker:           "Desa",
-    photo_label:      "Foto desa",
-  }
-};
-
-let currentLang = localStorage.getItem('lang') || 'en';
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('lang', lang);
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-id').classList.toggle('active', lang === 'id');
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (i18n[lang][key]) el.textContent = i18n[lang][key];
-  });
-  // If index.html panel is open, re-render it
-  if (typeof currentVillage !== 'undefined' && currentVillage) {
-    openVillage(currentVillage);
-  }
-}
-
-function renderHeader() {
-  const page = document.body.getAttribute('data-page') || 'explore';
-  const nav = [
-    { key: 'explore',      href: 'index.html',        i18n: 'nav_explore' },
-    { key: 'villages',     href: 'villages.html',     i18n: 'nav_villages' },
-    { key: 'activities',   href: 'activities.html',   i18n: 'nav_activities' },
-    { key: 'about',        href: 'about.html',        i18n: 'nav_about' },
-    { key: 'conservation', href: 'conservation.html', i18n: 'nav_conservation' },
+(function () {
+  const pages = [
+    { id: 'explore',      href: 'index.html',        en: 'Explore',      id_: 'Jelajahi' },
+    { id: 'villages',     href: 'villages.html',     en: 'Villages',     id_: 'Desa'     },
+    { id: 'activities',   href: 'activities.html',   en: 'Activities',   id_: 'Aktivitas'},
+    { id: 'about',        href: 'about.html',        en: 'About',        id_: 'Tentang'  },
+    { id: 'conservation', href: 'conservation.html', en: 'Conservation', id_: 'Konservasi'},
   ];
 
-  document.getElementById('site-header').innerHTML = `
-    <div>
-      <div class="brand-name">MAYALIBIT BAY TOURISM</div>
-    </div>
-    <nav>
-      ${nav.map(n => `
-        <a href="${n.href}" class="nav-link ${page === n.key ? 'active' : ''}" data-i18n="${n.i18n}">
-          ${i18n[currentLang][n.i18n]}
-        </a>
-      `).join('')}
-    </nav>
-    <div class="header-right">
-      <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn ${currentLang === 'id' ? 'active' : ''}" id="btn-id" onclick="setLang('id')">ID</button>
-    </div>
-  `;
+  let currentLang = localStorage.getItem('lang') || 'en';
+  const activePage = document.body.getAttribute('data-page') || 'explore';
 
-  // Apply current language to all i18n elements on the page
-  setLang(currentLang);
-}
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-i18n-en]').forEach(el => {
+      el.textContent = lang === 'en'
+        ? el.getAttribute('data-i18n-en')
+        : el.getAttribute('data-i18n-id');
+    });
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-id').classList.toggle('active', lang === 'id');
+  }
 
-document.addEventListener('DOMContentLoaded', renderHeader);
+  window.setLang = setLang;
+
+  function renderHeader() {
+    const el = document.getElementById('site-header');
+    if (!el) return;
+
+    const navLinks = pages.map(p => `
+      <a href="${p.href}" class="nav-link ${p.id === activePage ? 'active' : ''}"
+         data-i18n-en="${p.en}" data-i18n-id="${p.id_}">${currentLang === 'en' ? p.en : p.id_}</a>
+    `).join('');
+
+    el.innerHTML = `
+      <div>
+        <div class="brand-name">MAYALIBIT BAY TOURISM</div>
+        <div class="brand-sub">Raja Ampat · West Papua</div>
+      </div>
+      <nav>${navLinks}</nav>
+      <div style="display:flex;align-items:center;gap:0">
+        <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn ${currentLang === 'id' ? 'active' : ''}" id="btn-id" onclick="setLang('id')">ID</button>
+      </div>
+    `;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderHeader();
+    setLang(currentLang);
+  });
+})();
