@@ -3,142 +3,439 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mayalibit Bay · Tourist Activities · Aktivitas Wisata Teluk Mayalibit</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="map.css">
+<title>Mayalibit Bay Tourim</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #EDEAE3;
+    --navy:      #1A2E3C;
+    --gold:      #B8915A;
+    --white:     #ffffff;
+    --map-bg:    #D6DDE0;
+    --icon-bg:   #EDEAE3;
+    --border:    rgba(26, 46, 60, 0.09);
+    --text-muted: rgba(26, 46, 60, 0.55);
+    --text-sub:  rgba(26, 46, 60, 0.42);
+    --shadow:    0 12px 50px rgba(26,46,60,.22), 0 3px 12px rgba(26,46,60,.10);
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+  }
+
+  /* ── TOPBAR ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 60px;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    position: relative;
+    z-index: 10;
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .brand-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(26,46,60,.48);
+    letter-spacing: .03em;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  .nav-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--navy);
+    opacity: .52;
+    padding: 6px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    letter-spacing: .01em;
+    transition: opacity .2s;
+  }
+  .nav-link:hover { opacity: .8; }
+  .nav-link.active {
+    opacity: 1;
+    font-weight: 500;
+  }
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 16px;
+    right: 16px;
+    height: 1.5px;
+    background: var(--navy);
+    border-radius: 1px;
+  }
+
+  /* ── MAP AREA ── */
+  .map-wrap {
+    position: relative;
+    height: calc(100vh - 60px);
+    background: var(--map-bg);
+    overflow: hidden;
+  }
+
+  /* Replace this with your actual map image: */
+  /* .map-wrap img { width: 100%; height: 100%; object-fit: cover; } */
+
+  .map-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 38%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: rgba(26,46,60,.28);
+    pointer-events: none;
+  }
+
+  /* Hint pill */
+  .hint-pill {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,.88);
+    border-radius: 30px;
+    padding: 9px 20px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    border: 0.5px solid rgba(26,46,60,.08);
+    pointer-events: none;
+  }
+
+  /* ── FLOATING PANEL ── */
+  .panel {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    bottom: 22px;
+    width: 310px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity .25s, transform .25s;
+  }
+  .panel.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(12px);
+  }
+
+  .panel-inner {
+    padding: 28px 24px 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .panel-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: 0.5px solid var(--border);
+    color: rgba(26,46,60,.35);
+    cursor: pointer;
+    display: flex;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background .15s;
+  }
+  .panel-close:hover { background: rgba(26,46,60,.05); }
+
+  .panel-kicker {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(26,46,60,.38);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .panel-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.02;
+    margin-bottom: 10px;
+  }
+
+  .gold-bar {
+    width: 28px;
+    height: 1.5px;
+    background: var(--gold);
+    border-radius: 1px;
+    margin-bottom: 14px;
+  }
+
+  .panel-desc {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.72;
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+
+  .act-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .act-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid rgba(26,46,60,.07);
+  }
+  .act-row:first-child { border-top: 0.5px solid rgba(26,46,60,.07); }
+  .act-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--icon-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--navy);
+  }
+  .act-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .act-sub {
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-top: 2px;
+    font-weight: 300;
+  }
+
+  /* Photo: own card inside panel, with margin all around */
+  .panel-photo {
+    margin: 16px 12px 12px;
+    border-radius: 10px;
+    height: 120px;
+    background: linear-gradient(140deg, #8aabb5, #5c8494);
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 12px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .panel-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(20,35,45,.45) 0%, transparent 60%);
+  }
+  .panel-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-label {
+    font-size: 11px;
+    color: rgba(255,255,255,.45);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    position: relative;
+    z-index: 1;
+  }
+</style>
 </head>
 <body>
 
-<div class="map-wrap"><img id="map-img" src="mayalibit-map.png" alt="Mayalibit Bay"></div>
-
 <header>
   <div>
-    <div class="brand-name">Mayalibit Bay</div>
-    <div class="brand-sub">Reef Guardian e.V.</div>
+    <div class="brand-name">MAYALIBIT BAY TOURISM</div>
+    <div class="brand-sub"></div>
   </div>
   <nav>
-    <a href="#" class="nav-link active" data-i18n="nav_explore">Explore</a>
-    <a href="#" class="nav-link" data-i18n="nav_villages">Villages</a>
-    <a href="#" class="nav-link" data-i18n="nav_activities">Activities</a>
-    <a href="#" class="nav-link" data-i18n="nav_about">About</a>
-    <a href="#" class="nav-link" data-i18n="nav_conservation">Conservation</a>
+    <button class="nav-link active">Explore</button>
+    <button class="nav-link">Villages</button>
+    <button class="nav-link">Activities</button>
+    <button class="nav-link">About</button>
+    <button class="nav-link">Conservation</button>
   </nav>
-  <div class="header-right">
-    <button class="lang-btn" id="lang-btn">ID</button>
-    <div class="rg-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-      Reef Guardian e.V.
-    </div>
-    <button class="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
 </header>
 
-<div class="map-hint" id="map-hint">
-  <span>👆</span><span data-i18n="hint">Click on a village to discover more</span>
-</div>
+<div class="map-wrap">
 
-<div class="tooltip" id="tooltip">
-  <div class="tt-name" id="tt-name"></div>
-  <div class="tt-acts" id="tt-acts"></div>
-</div>
+  <!-- ── Replace this div with your map image: ────────────────────────
+  <img src="mayalibit-map.png" alt="Map of Mayalibit Bay">
+  ───────────────────────────────────────────────────────────────────── -->
+  <div class="map-placeholder">← Kartengrafik hier einfügen</div>
 
-<aside class="detail-panel" id="detail-panel">
-  <button class="panel-close" id="panel-close">×</button>
-  <div class="panel-kicker" data-i18n="kicker">Village</div>
-  <div class="panel-name" id="panel-name"></div>
-  <div class="panel-divider"></div>
-  <p class="panel-desc" id="panel-desc"></p>
-  <div class="panel-acts" id="panel-acts"></div>
-  <div class="panel-photo" id="panel-photo"></div>
-</aside>
+  <!-- Hint -->
+  <div class="hint-pill" id="hint">
+    <i data-lucide="hand-pointer" style="width:13px;height:13px"></i>
+    Click on a village to discover more
+  </div>
+
+  <!-- Floating panel -->
+  <aside class="panel hidden" id="panel">
+    <button class="panel-close" id="panel-close">
+      <i data-lucide="x" style="width:15px;height:15px"></i>
+    </button>
+    <div class="panel-inner">
+      <div class="panel-kicker">Village</div>
+      <div class="panel-name" id="panel-name"></div>
+      <div class="gold-bar"></div>
+      <div class="panel-desc" id="panel-desc"></div>
+      <div class="act-list" id="act-list"></div>
+    </div>
+    <div class="panel-photo" id="panel-photo">
+      <span class="photo-label" id="photo-label">Village photo</span>
+    </div>
+  </aside>
+
+</div>
 
 <script>
-/* ── I18N ── */
-const i18n = {
-  en: { nav_explore:"Explore", nav_villages:"Villages", nav_activities:"Activities", nav_about:"About", nav_conservation:"Conservation", hint:"Click on a village to discover more", kicker:"Village", no_desc:"Explore village life and nature-based experiences in Mayalibit Bay." },
-  id: { nav_explore:"Jelajahi", nav_villages:"Desa", nav_activities:"Aktivitas", nav_about:"Tentang", nav_conservation:"Konservasi", hint:"Klik desa untuk menemukan lebih banyak", kicker:"Desa", no_desc:"Temukan kehidupan desa dan pengalaman alam di Teluk Mayalibit." }
+// ── Village data ────────────────────────────────────────────────────
+// Add your villages here. icon = any Lucide icon name.
+const villages = {
+  warimak: {
+    name: "Warimak",
+    desc: "A welcoming coastal village surrounded by mangroves and jungle. Great for bird watching and nature walks.",
+    activities: [
+      { icon: "house",      name: "Homestay",      sub: "Nowtato · Homestay" },
+      { icon: "binoculars", name: "Bird Watching",  sub: "Tem mani · Pengamatan burung" },
+      { icon: "footprints", name: "Hiking",         sub: "Sa · Lintas alam" },
+    ],
+    photo: null  // replace with "photos/warimak.jpg"
+  },
+  lopintol: {
+    name: "Lopintol",
+    desc: "A small fishing community known for traditional weaving and pristine coral reef snorkeling.",
+    activities: [
+      { icon: "waves",      name: "Snorkeling",       sub: "Menyelam · Diving" },
+      { icon: "compass",    name: "Guided Walks",      sub: "Jalan · Panduan alam" },
+      { icon: "music",      name: "Traditional Music", sub: "Musik adat · Music" },
+    ],
+    photo: null
+  },
+  waifoi: {
+    name: "Waifoi",
+    desc: "Gateway to pristine rainforest. Home to the iconic Wilson's Bird-of-Paradise.",
+    activities: [
+      { icon: "binoculars", name: "Bird Watching",  sub: "Tem mani · Pengamatan burung" },
+      { icon: "trees",      name: "Forest Trekking", sub: "Hutan · Pendakian hutan" },
+      { icon: "sailboat",   name: "Canoe Trips",    sub: "Perahu · Kayak" },
+    ],
+    photo: null
+  },
+  warsambin: {
+    name: "Warsambin",
+    desc: "A quiet village on the eastern bay, known for mangrove paddling and traditional shell crafts.",
+    activities: [
+      { icon: "sailboat",   name: "Canoe Tours",   sub: "Perahu · Kayak" },
+      { icon: "leaf",       name: "Nature Walks",  sub: "Alam · Jalan alam" },
+      { icon: "shell",      name: "Shell Crafts",  sub: "Kerajinan · Crafts" },
+    ],
+    photo: null
+  },
+  kalitoko: {
+    name: "Kalitoko",
+    desc: "Central village of Mayalibit Bay with access to sustainable lobster farming projects.",
+    activities: [
+      { icon: "fish",       name: "Lobster Farm Tour", sub: "Budidaya · Farm tour" },
+      { icon: "waves",      name: "Snorkeling",        sub: "Menyelam · Diving" },
+      { icon: "anchor",     name: "Fishing",           sub: "Memancing · Fishing" },
+    ],
+    photo: null
+  },
 };
-let lang = "en";
-function applyLang() {
-  document.querySelectorAll('[data-i18n]').forEach(el => { const k=el.dataset.i18n; if(i18n[lang][k]) el.textContent=i18n[lang][k]; });
-  document.getElementById('lang-btn').textContent = lang==='en'?'ID':'EN';
-  document.querySelectorAll('.map-label').forEach(lb => { const loc=locations.find(l=>l.id===lb.dataset.locId); if(loc) lb.textContent=loc[`name_${lang}`]; });
-}
-document.getElementById('lang-btn').addEventListener('click',()=>{ lang=lang==='en'?'id':'en'; applyLang(); });
 
-/* ── LOCATION DATA ──────────────────────────────────────
-   desc_en / desc_id : Ortsbeschreibung eintragen
-   photo             : Dateiname in photos/ Ordner, z.B. "waifoi.jpg"
-─────────────────────────────────────────────────────── */
-const locations = [
-  { id:"go",        name_en:"Go",        name_id:"Go",        left:36.5, top:24.5, lx:12,  ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"}] },
-  { id:"kabilol",   name_en:"Kabilol",   name_id:"Kabilol",   left:27.8, top:36.5, lx:-76, ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"}] },
-  { id:"waifoi",    name_en:"Waifoi",    name_id:"Waifoi",    left:51.8, top:29.5, lx:14,  ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"},{icon:"🦜",name:"Bird Watching",sub:"Tem mani · Pengamatan burung"},{icon:"🥾",name:"Hiking",sub:"Sa · Lintas alam"},{icon:"🥁",name:"Cultural Heritage",sub:"Le imtolon · Warisan budaya"}] },
-  { id:"beo",       name_en:"Beo",       name_id:"Beo",       left:38.8, top:43.5, lx:14,  ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"}] },
-  { id:"arawai",    name_en:"Arawai",    name_id:"Arawai",    left:23.2, top:46.0, lx:-70, ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"},{icon:"🔭",name:"Viewpoint",sub:"Iyamunta tem · Gardu Pandang"}] },
-  { id:"warimak",   name_en:"Warimak",   name_id:"Warimak",   left:54.5, top:44.0, lx:14,  ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"},{icon:"🦜",name:"Bird Watching",sub:"Tem mani · Pengamatan burung"},{icon:"🥾",name:"Hiking",sub:"Sa · Lintas alam"}] },
-  { id:"kalitoko",  name_en:"Kalitoko",  name_id:"Kalitoko",  left:62.8, top:65.0, lx:14,  ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"}] },
-  { id:"warsambin", name_en:"Warsambin", name_id:"Warsambin", left:72.0, top:78.5, lx:-86, ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"},{icon:"🏊",name:"Swimming – Kali Biru",sub:"Hla · Berenang"}] },
-  { id:"lopintol",  name_en:"Lopintol",  name_id:"Lopintol",  left:73.2, top:89.5, lx:-82, ly:14,  desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"},{icon:"🤿",name:"Snorkeling",sub:"Hlanaron · Snorkeling"}] },
-  { id:"mumes",     name_en:"Mumes",     name_id:"Mumes",     left:88.5, top:84.5, lx:14,  ly:-22, desc_en:"", desc_id:"", photo:"", activities:[{icon:"🏡",name:"Homestay",sub:"Nowtato · Homestay"}] }
-];
+// ── Panel logic ─────────────────────────────────────────────────────
+const panel     = document.getElementById('panel');
+const panelName = document.getElementById('panel-name');
+const panelDesc = document.getElementById('panel-desc');
+const actList   = document.getElementById('act-list');
+const panelPhoto = document.getElementById('panel-photo');
+const photoLabel = document.getElementById('photo-label');
+const hint      = document.getElementById('hint');
 
-/* ── BUILD HOTSPOTS ── */
-const mapImg = document.getElementById('map-img');
-function build() {
-  document.querySelectorAll('.hotspot,.map-label').forEach(e=>e.remove());
-  const r = mapImg.getBoundingClientRect();
-  locations.forEach(loc => {
-    const x = r.left + (loc.left/100)*r.width;
-    const y = r.top  + (loc.top/100)*r.height;
-    const hs = document.createElement('div');
-    hs.className='hotspot'; hs.dataset.id=loc.id;
-    hs.style.left=x+'px'; hs.style.top=y+'px';
-    document.body.appendChild(hs);
-    const lb = document.createElement('div');
-    lb.className='map-label'; lb.dataset.locId=loc.id;
-    lb.textContent=loc[`name_${lang}`];
-    lb.style.left=(x+loc.lx)+'px'; lb.style.top=(y+loc.ly)+'px';
-    document.body.appendChild(lb);
-    hs.addEventListener('mouseenter',e=>showTip(loc,e));
-    hs.addEventListener('mousemove',moveTip);
-    hs.addEventListener('mouseleave',hideTip);
-    hs.addEventListener('click',()=>openPanel(loc));
-  });
-}
-window.addEventListener('resize',build);
-if(mapImg.complete) build(); else mapImg.addEventListener('load',build);
+function openVillage(id) {
+  const v = villages[id];
+  if (!v) return;
 
-/* ── TOOLTIP ── */
-const tooltip=document.getElementById('tooltip'), ttName=document.getElementById('tt-name'), ttActs=document.getElementById('tt-acts');
-function showTip(loc,e){ ttName.textContent=loc[`name_${lang}`]; ttActs.innerHTML=loc.activities.map(a=>`<div class="tt-act"><div class="tt-act-icon">${a.icon}</div><span>${a.name}</span></div>`).join(''); tooltip.classList.add('visible'); moveTip(e); }
-function hideTip(){ tooltip.classList.remove('visible'); }
-function moveTip(e){ const w=tooltip.offsetWidth||200,h=tooltip.offsetHeight||100; let x=e.clientX+16,y=e.clientY-12; if(x+w>window.innerWidth-8)x=e.clientX-w-16; if(y+h>window.innerHeight-8)y=window.innerHeight-h-8; if(y<8)y=8; tooltip.style.left=x+'px'; tooltip.style.top=y+'px'; }
+  panelName.textContent = v.name;
+  panelDesc.textContent = v.desc;
 
-/* ── DETAIL PANEL ── */
-const panel=document.getElementById('detail-panel'), panelName=document.getElementById('panel-name'), panelDesc=document.getElementById('panel-desc'), panelActs=document.getElementById('panel-acts'), panelPhoto=document.getElementById('panel-photo'), mapHint=document.getElementById('map-hint');
-function openPanel(loc){
-  panelName.textContent=loc[`name_${lang}`];
-  panelDesc.textContent=loc[`desc_${lang}`]||i18n[lang].no_desc;
-  panelActs.innerHTML=loc.activities.map(a=>`
-    <div class="panel-act">
-      <div class="panel-act-icon">${a.icon}</div>
+  actList.innerHTML = v.activities.map(a => `
+    <div class="act-row">
+      <div class="act-icon"><i data-lucide="${a.icon}" style="width:16px;height:16px"></i></div>
       <div>
-        <span class="panel-act-name">${a.name}</span>
-        <span class="panel-act-sub">${a.sub}</span>
+        <div class="act-name">${a.name}</div>
+        <div class="act-sub">${a.sub}</div>
       </div>
-    </div>`).join('');
-  if(loc.photo){ panelPhoto.innerHTML=`<img src="photos/${loc.photo}" alt="${loc[`name_${lang}`]}">`; panelPhoto.style.display='block'; }
-  else { panelPhoto.innerHTML=''; panelPhoto.style.display='none'; }
-  document.querySelectorAll('.hotspot').forEach(h=>h.classList.remove('active'));
-  document.querySelector(`.hotspot[data-id="${loc.id}"]`)?.classList.add('active');
-  panel.classList.add('open'); mapHint.classList.add('hidden'); hideTip();
-}
-document.getElementById('panel-close').addEventListener('click',()=>{ panel.classList.remove('open'); mapHint.classList.remove('hidden'); document.querySelectorAll('.hotspot').forEach(h=>h.classList.remove('active')); });
+    </div>
+  `).join('');
 
-applyLang();
+  // Photo
+  if (v.photo) {
+    panelPhoto.innerHTML = `<img src="${v.photo}" alt="${v.name}"><span class="photo-label" style="position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.45);font-style:italic;font-family:'Cormorant Garamond',serif;">${v.name}</span>`;
+  } else {
+    panelPhoto.innerHTML = `<span class="photo-label">Village photo</span>`;
+  }
+
+  panel.classList.remove('hidden');
+  hint.style.opacity = '0';
+  lucide.createIcons();
+}
+
+document.getElementById('panel-close').addEventListener('click', () => {
+  panel.classList.add('hidden');
+  hint.style.opacity = '1';
+});
+
+// ── Init ─────────────────────────────────────────────────────────────
+lucide.createIcons();
+
+// Demo: open Warimak on load so panel is visible
+openVillage('warimak');
 </script>
 </body>
 </html>
