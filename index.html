@@ -282,6 +282,22 @@
     position: relative;
     z-index: 1;
   }
+
+  .lang-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--navy);
+  border: 0.5px solid rgba(26,46,60,.25);
+  background: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  letter-spacing: .06em;
+  transition: background .15s;
+}
+.lang-btn:first-child { border-radius: 20px 0 0 20px; border-right: none; }
+.lang-btn:last-child  { border-radius: 0 20px 20px 0; }
+.lang-btn.active { background: var(--navy); color: var(--bg); }
 </style>
 </head>
 <body>
