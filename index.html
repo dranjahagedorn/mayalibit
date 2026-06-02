@@ -150,27 +150,25 @@
     transform: scale(1.4);
   }
 
-  /* Permanent village name label */
-  .village-tooltip-permanent {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+  /* Village name label */
+  .v-label {
+    position: absolute;
+    left: 14px;
+    top: -6px;
     font-family: 'Inter', sans-serif;
     font-size: 10.5px;
     font-weight: 500;
     letter-spacing: .04em;
     color: #1A2E3C;
+    white-space: nowrap;
+    pointer-events: none;
     text-shadow:
       -1px -1px 0 rgba(255,255,255,.9),
        1px -1px 0 rgba(255,255,255,.9),
       -1px  1px 0 rgba(255,255,255,.9),
        1px  1px 0 rgba(255,255,255,.9),
        0    2px 4px rgba(255,255,255,.7);
-    white-space: nowrap;
-    pointer-events: none;
   }
-  .village-tooltip-permanent::before { display: none !important; }
 
   /* Hint pill */
   .hint-pill {
@@ -262,6 +260,32 @@
     margin-bottom: 16px;
     font-weight: 300;
   }
+  .panel-contact {
+    margin-bottom: 16px;
+  }
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 8px;
+    margin-bottom: 6px;
+    transition: background .15s, color .15s;
+  }
+  .contact-btn:hover {
+    background: var(--gold);
+    color: #fff;
+  }
   .act-list { display: flex; flex-direction: column; }
   .act-row {
     display: flex;
@@ -334,6 +358,7 @@
       <div class="panel-name" id="panel-name"></div>
       <div class="gold-bar"></div>
       <div class="panel-desc" id="panel-desc"></div>
+      <div class="panel-contact" id="panel-contact"></div>
       <div class="act-list" id="act-list"></div>
     </div>
     <div class="panel-photo" id="panel-photo">
@@ -349,7 +374,7 @@ const villages = {
   go: {
     name: "Go",
     lat: -0.0784895, lon: 130.6647536,
-    desc: "A traditional village at the northern bay, offering a glimpse into authentic Ma'ya daily life and forest culture.",
+    desc: "A lively village at the bay's southern entrance – snorkel crystal-clear waters, kayak by traditional canoe, spot dolphins, explore waterfalls and mangroves, and visit local weavers onshore.\n\nDesa Go di pintu masuk selatan teluk menawarkan snorkeling, kayak dengan perahu tradisional, pengamatan lumba-lumba, air terjun, dan jelajah mangrove – serta kunjungan ke pengrajin anyaman lokal.",
     activities: [
       { icon: "trees",      name: "Forest Walks",   sub: "Hutan · Jalan alam" },
       { icon: "fish",       name: "Fishing",        sub: "Memancing · Fishing" },
@@ -393,7 +418,7 @@ const villages = {
   waifoi: {
     name: "Waifoi",
     lat: -0.1002787, lon: 130.7141854,
-    desc: "Gateway to pristine rainforest. Home to the iconic Wilson's Bird-of-Paradise.",
+    desc: "Waifoi is the cultural heart of Mayalibit Bay – home to a Ma'ya ancestral house, traditional sago processing, and the Makai Hun Hat cultural stage. The surrounding forest and mangroves shelter rich wildlife, from amphibians to endemic birds.\n\nWaifoi adalah jantung budaya Teluk Mayalibit – dengan rumah adat Ma'ya, pengolahan sagu tradisional, dan sanggar budaya Makai Hun Hat. Hutan dan mangrove di sekitarnya menjadi habitat satwa liar yang kaya.",
     activities: [
       { icon: "binoculars", name: "Bird Watching",  sub: "Tem mani · Pengamatan burung" },
       { icon: "trees",      name: "Forest Trekking",sub: "Hutan · Pendakian hutan" },
@@ -404,29 +429,31 @@ const villages = {
   warimak: {
     name: "Warimak",
     lat: -0.1453863, lon: 130.7363123,
-    desc: "A welcoming coastal village surrounded by mangroves and jungle. Great for bird watching and nature walks.",
+    desc: "Remote and unhurried, Warimak rewards adventurous visitors with jungle trekking, cave exploration, and exceptional birdwatching amid untouched forest rich in flora and fauna.\n\nTerpencil dan tenang, Warimak menawarkan trekking hutan, jelajah goa, dan pengamatan burung yang luar biasa di tengah hutan yang kaya flora dan fauna.",
     activities: [
       { icon: "house",      name: "Homestay",       sub: "Nowtato · Homestay" },
       { icon: "binoculars", name: "Bird Watching",  sub: "Tem mani · Pengamatan burung" },
       { icon: "footprints", name: "Hiking",         sub: "Sa · Lintas alam" },
     ],
-    photo: null
+    photo: null,
+    contact: { label: "Laensorongga Homestay", url: "https://maps.app.goo.gl/bXheh3oXwJmD9bFKA", phone: null }
   },
   kalitoko: {
     name: "Kalitoko",
     lat: -0.2240712, lon: 130.8025038,
-    desc: "Central village of Mayalibit Bay with access to sustainable lobster farming projects.",
+    desc: "Kalitoko sits deep in the bay, where rivers meet mangroves and the forest begins. Ideal for slow travel – trekking, river exploration, and quiet encounters with wildlife.\n\nKalitoko terletak jauh di dalam teluk, di mana sungai bertemu mangrove dan hutan dimulai. Cocok untuk perjalanan santai – trekking, jelajah sungai, dan pengamatan satwa.",
     activities: [
       { icon: "fish",       name: "Lobster Farm Tour",sub: "Budidaya · Farm tour" },
       { icon: "waves",      name: "Snorkeling",       sub: "Menyelam · Diving" },
       { icon: "anchor",     name: "Fishing",          sub: "Memancing · Fishing" },
     ],
-    photo: null
+    photo: null,
+    contact: { label: "Labuta Homestay", url: "https://www.instagram.com/labutahomstey/", phone: null }
   },
   warsambin: {
     name: "Warsambin",
     lat: -0.3188912, lon: 130.9188419,
-    desc: "A quiet village on the eastern bay, known for mangrove paddling and traditional shell crafts.",
+    desc: "Warsambin welcomes visitors with traditional dance and the striking blue waters of Kalibiru. The village is also a gateway to mangrove jetty exploration along the bay's eastern shore.\n\nWarsambin menyambut tamu dengan tarian tradisional dan air biru Kalibiru yang memukau. Desa ini juga menjadi pintu masuk untuk menjelajahi jeti mangrove di pesisir timur teluk.",
     activities: [
       { icon: "sailboat",   name: "Canoe Tours",    sub: "Perahu · Kayak" },
       { icon: "leaf",       name: "Nature Walks",   sub: "Alam · Jalan alam" },
@@ -448,7 +475,7 @@ const villages = {
   mumes: {
     name: "Mumes",
     lat: -0.305, lon: 130.940,
-    desc: "The easternmost village of Mayalibit Bay, renowned for its spectacular coral gardens and traditional fishing culture.",
+    desc: "Mumes lies at the northern tip of the bay, offering a quiet base for those seeking seclusion – with glamping options and homestays amid pristine nature.\n\nMumes terletak di ujung utara teluk, menawarkan ketenangan bagi mereka yang mencari kedamaian – dengan pilihan glamping dan homestay di alam yang masih asri.",
     activities: [
       { icon: "waves",      name: "Diving",         sub: "Menyelam · Diving" },
       { icon: "fish",       name: "Fishing",        sub: "Memancing · Fishing" },
@@ -465,7 +492,7 @@ const map = L.map('leaflet-map', {
   attributionControl: true,
 });
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
   maxZoom: 18,
   subdomains: 'abcd',
   attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
@@ -481,6 +508,7 @@ const panel      = document.getElementById('panel');
 const panelName  = document.getElementById('panel-name');
 const panelDesc  = document.getElementById('panel-desc');
 const actList    = document.getElementById('act-list');
+const panelContact = document.getElementById('panel-contact');
 const panelPhoto = document.getElementById('panel-photo');
 const hint       = document.getElementById('hint');
 
@@ -490,6 +518,25 @@ function openVillage(id) {
 
   panelName.textContent = v.name;
   panelDesc.textContent = v.desc;
+
+  if (v.contact) {
+    let html = '';
+    if (v.contact.url) {
+      html += `<a class="contact-btn" href="${v.contact.url}" target="_blank" rel="noopener">
+        <i data-lucide="external-link" style="width:13px;height:13px"></i>${v.contact.label}
+      </a>`;
+    }
+    if (v.contact.phone) {
+      html += `<a class="contact-btn" href="https://wa.me/${v.contact.phone.replace(/\D/g,'')}" target="_blank" rel="noopener">
+        <i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp
+      </a>`;
+    }
+    panelContact.innerHTML = html;
+    panelContact.style.display = 'block';
+  } else {
+    panelContact.innerHTML = '';
+    panelContact.style.display = 'none';
+  }
 
   actList.innerHTML = v.activities.map(a => `
     <div class="act-row">
@@ -530,20 +577,13 @@ Object.entries(villages).forEach(([id, v]) => {
     html: `<div class="village-marker" id="marker-${id}">
              <div class="v-dot"></div>
              <div class="v-stem"></div>
+             <div class="v-label">${v.name}</div>
            </div>`,
     iconSize: [11, 18],
     iconAnchor: [5, 18],
   });
 
   const marker = L.marker([v.lat, v.lon], { icon }).addTo(map);
-
-  // Permanent name label — always visible at all zoom levels
-  marker.bindTooltip(v.name, {
-    permanent: true,
-    direction: 'right',
-    offset: [8, -9],
-    className: 'village-tooltip-permanent',
-  }).openTooltip();
 
   marker.on('click', () => openVillage(id));
 });
