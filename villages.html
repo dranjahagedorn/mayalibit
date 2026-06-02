@@ -40,97 +40,91 @@
     content: ''; position: absolute; bottom: -1px; left: 16px; right: 16px;
     height: 1.5px; background: var(--navy); border-radius: 1px;
   }
-  .header-right { display: flex; align-items: center; gap: 8px; }
   .lang-btn {
     font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
     color: var(--navy); border: 0.5px solid rgba(26,46,60,.25);
-    background: none; border-radius: 20px; padding: 5px 12px;
-    cursor: pointer; letter-spacing: .06em; transition: background .15s;
+    background: none; padding: 5px 10px; cursor: pointer;
+    letter-spacing: .06em; transition: background .15s;
   }
-  .lang-btn:hover { background: rgba(26,46,60,.06); }
+  .lang-btn:first-child { border-radius: 20px 0 0 20px; border-right: none; }
+  .lang-btn:last-child  { border-radius: 0 20px 20px 0; }
   .lang-btn.active { background: var(--navy); color: var(--bg); }
 
-  /* Layout */
-  .page-body {
-    display: flex;
-    min-height: calc(100vh - 60px);
-  }
+  .page-body { display: flex; min-height: calc(100vh - 60px); }
 
   /* Sidebar */
   .sidebar {
-    width: 180px;
-    flex-shrink: 0;
+    width: 180px; flex-shrink: 0;
     padding: 40px 0 40px 32px;
     border-right: 0.5px solid var(--border);
-    position: sticky;
-    top: 60px;
-    height: calc(100vh - 60px);
-    overflow-y: auto;
+    position: sticky; top: 60px;
+    height: calc(100vh - 60px); overflow-y: auto;
   }
   .sidebar-title {
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: .12em;
-    color: var(--text-sub);
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    font-size: 9px; font-weight: 500; letter-spacing: .12em;
+    color: var(--text-sub); text-transform: uppercase; margin-bottom: 16px;
   }
   .sidebar-link {
-    display: block;
-    font-size: 12.5px;
-    color: var(--text-muted);
-    padding: 7px 0 7px 12px;
-    margin-left: -12px;
+    display: block; font-size: 12.5px; color: var(--text-muted);
+    padding: 7px 0 7px 12px; margin-left: -12px;
     border-left: 2px solid transparent;
-    text-decoration: none;
-    transition: color .15s, border-color .15s;
-    cursor: pointer;
+    text-decoration: none; transition: color .15s, border-color .15s;
   }
   .sidebar-link:hover { color: var(--navy); }
   .sidebar-link.active { color: var(--navy); font-weight: 500; border-left-color: var(--gold); }
 
   /* Content */
-  .content {
-    flex: 1;
-    padding: 48px 56px 80px;
-    max-width: 720px;
-  }
+  .content { flex: 1; padding: 48px 56px 80px; max-width: 740px; }
   .page-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem; font-weight: 600; color: var(--navy);
-    margin-bottom: 10px;
+    font-size: 3rem; font-weight: 600; margin-bottom: 10px;
   }
   .gold-bar { width: 32px; height: 1.5px; background: var(--gold); border-radius: 1px; margin-bottom: 48px; }
 
   /* Village section */
-  .village-section {
-    margin-bottom: 56px;
-    scroll-margin-top: 80px;
+  .village-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+
+  /* Village photo */
+  .village-photo {
+    width: 100%; height: 260px;
+    border-radius: 12px; overflow: hidden;
+    margin-bottom: 24px;
+    background: linear-gradient(140deg, #8aabb5, #5c8494);
+    position: relative;
   }
-  .village-header { margin-bottom: 12px; }
+  .village-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .village-photo .photo-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-style: italic;
+    color: rgba(255,255,255,.45);
+  }
+
   .village-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.9rem; font-weight: 600; color: var(--navy);
-    margin-bottom: 8px;
+    font-size: 2rem; font-weight: 600; margin-bottom: 8px;
   }
   .village-tag {
-    display: inline-block;
-    font-size: 10px; font-weight: 500; letter-spacing: .07em;
-    color: var(--gold); border: 0.5px solid var(--gold);
-    border-radius: 20px; padding: 3px 10px;
+    display: inline-block; font-size: 10px; font-weight: 500;
+    letter-spacing: .07em; color: var(--gold);
+    border: 0.5px solid var(--gold); border-radius: 20px;
+    padding: 3px 10px; margin-bottom: 20px;
   }
-  .village-desc-en {
-    font-size: 14px; color: var(--text-muted); line-height: 1.8;
-    font-weight: 300; margin: 16px 0 10px;
+
+  /* Description — lang switching */
+  .village-desc {
+    font-size: 14.5px; color: var(--text-muted); line-height: 1.85;
+    font-weight: 300; margin-bottom: 24px;
   }
-  .village-desc-id {
-    font-size: 13px; color: var(--text-sub); line-height: 1.75;
-    font-weight: 300; font-style: italic; margin-bottom: 18px;
-  }
-  .activity-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .village-desc [data-lang] { display: none; }
+  .village-desc [data-lang="en"] { display: block; }
+
+  .activity-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 24px; }
   .pill {
-    font-size: 11px; font-weight: 400;
-    padding: 4px 11px; border-radius: 20px;
+    font-size: 11px; padding: 4px 11px; border-radius: 20px;
     background: rgba(26,46,60,.07); color: var(--text-muted);
   }
   .village-actions { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -140,12 +134,15 @@
     padding: 7px 14px; border-radius: 20px;
     border: 1px solid var(--gold); color: var(--gold);
     background: transparent; text-decoration: none;
-    transition: background .15s, color .15s; cursor: pointer;
+    transition: background .15s, color .15s;
   }
   .action-btn:hover { background: var(--gold); color: #fff; }
-  .village-divider {
-    height: 0.5px; background: var(--border);
-    margin-bottom: 56px;
+
+  .village-divider { height: 0.5px; background: var(--border); margin-bottom: 64px; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .content { padding: 32px 24px 60px; }
   }
 </style>
 </head>
@@ -155,7 +152,7 @@
 
 <div class="page-body">
   <aside class="sidebar">
-    <div class="sidebar-title">Villages</div>
+    <div class="sidebar-title" data-i18n-en="Villages" data-i18n-id="Desa">Villages</div>
     <a class="sidebar-link" href="#go">Go</a>
     <a class="sidebar-link" href="#waifoi">Waifoi</a>
     <a class="sidebar-link" href="#warimak">Warimak</a>
@@ -168,14 +165,23 @@
     <h1 class="page-title" data-i18n-en="Villages" data-i18n-id="Desa">Villages</h1>
     <div class="gold-bar"></div>
 
-    <!-- Go -->
+    <!-- ── GO ── -->
     <section class="village-section" id="go">
-      <div class="village-header">
-        <div class="village-name">Go</div>
-        <span class="village-tag" data-i18n-en="Southern Entrance" data-i18n-id="Pintu Masuk Selatan">Southern Entrance</span>
+      <div class="village-photo">
+        <!-- Replace 'foto-go.jpg' with your filename once uploaded -->
+        <!-- <img src="foto-go.jpg" alt="Go"> -->
+        <div class="photo-placeholder">Go · Photo coming soon</div>
       </div>
-      <p class="village-desc-en" data-i18n-en="A lively village at the bay's southern entrance – snorkel crystal-clear waters, kayak by traditional canoe, spot dolphins, explore waterfalls and mangroves, and visit local weavers onshore." data-i18n-id="">A lively village at the bay's southern entrance – snorkel crystal-clear waters, kayak by traditional canoe, spot dolphins, explore waterfalls and mangroves, and visit local weavers onshore.</p>
-      <p class="village-desc-id" data-i18n-id="Desa Go di pintu masuk selatan teluk menawarkan snorkeling, kayak dengan perahu tradisional, pengamatan lumba-lumba, air terjun, dan jelajah mangrove – serta kunjungan ke pengrajin anyaman lokal.">Desa Go di pintu masuk selatan teluk menawarkan snorkeling, kayak dengan perahu tradisional, pengamatan lumba-lumba, air terjun, dan jelajah mangrove – serta kunjungan ke pengrajin anyaman lokal.</p>
+      <div class="village-name">Go</div>
+      <span class="village-tag" data-i18n-en="Southern Entrance" data-i18n-id="Pintu Masuk Selatan">Southern Entrance</span>
+      <div class="village-desc">
+        <div data-lang="en">
+          <p>A lively village at the bay's southern entrance, Go is one of the most accessible communities in Mayalibit Bay. Visitors can snorkel crystal-clear waters, kayak by traditional canoe, and spot dolphins in the open strait. Inland, jungle trails lead to waterfalls and dense mangrove channels. On shore, local weavers produce intricate handicrafts – a fine souvenir and a window into Ma'ya material culture.</p>
+        </div>
+        <div data-lang="id">
+          <p>Desa Go di pintu masuk selatan teluk adalah salah satu komunitas yang paling mudah dijangkau di Teluk Mayalibit. Pengunjung dapat snorkeling di perairan jernih, kayak dengan perahu tradisional, dan mengamati lumba-lumba di selat terbuka. Di darat, jalur hutan menuju air terjun dan saluran mangrove yang lebat. Di darat, pengrajin anyaman lokal menghasilkan kerajinan tangan yang indah – oleh-oleh yang sempurna sekaligus jendela menuju budaya material Ma'ya.</p>
+        </div>
+      </div>
       <div class="activity-pills">
         <span class="pill" data-i18n-en="Snorkeling" data-i18n-id="Snorkeling">Snorkeling</span>
         <span class="pill" data-i18n-en="Kayaking" data-i18n-id="Kayak">Kayaking</span>
@@ -185,21 +191,32 @@
         <span class="pill" data-i18n-en="Weaving" data-i18n-id="Anyaman">Weaving</span>
       </div>
       <div class="village-actions">
-        <a class="action-btn" href="index.html#go" data-i18n-en="View on map" data-i18n-id="Lihat di peta">
-          <i data-lucide="map-pin" style="width:13px;height:13px"></i> View on map
+        <a class="action-btn" href="index.html#go">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i>
+          <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
         </a>
       </div>
     </section>
     <div class="village-divider"></div>
 
-    <!-- Waifoi -->
+    <!-- ── WAIFOI ── -->
     <section class="village-section" id="waifoi">
-      <div class="village-header">
-        <div class="village-name">Waifoi</div>
-        <span class="village-tag" data-i18n-en="Cultural Heart" data-i18n-id="Jantung Budaya">Cultural Heart</span>
+      <div class="village-photo">
+        <!-- <img src="foto-waifoi.jpg" alt="Waifoi"> -->
+        <div class="photo-placeholder">Waifoi · Photo coming soon</div>
       </div>
-      <p class="village-desc-en">Waifoi is the cultural heart of Mayalibit Bay – home to a Ma'ya ancestral house, traditional sago processing, and the Makai Hun Hat cultural stage. The surrounding forest and mangroves shelter rich wildlife, from amphibians to endemic birds.</p>
-      <p class="village-desc-id">Waifoi adalah jantung budaya Teluk Mayalibit – dengan rumah adat Ma'ya, pengolahan sagu tradisional, dan sanggar budaya Makai Hun Hat. Hutan dan mangrove di sekitarnya menjadi habitat satwa liar yang kaya.</p>
+      <div class="village-name">Waifoi</div>
+      <span class="village-tag" data-i18n-en="Cultural Heart" data-i18n-id="Jantung Budaya">Cultural Heart</span>
+      <div class="village-desc">
+        <div data-lang="en">
+          <p>Waifoi is the cultural heart of Mayalibit Bay. The village is home to a Ma'ya ancestral house, a gathering place that has anchored community life for generations. At the Makai Hun Hat cultural stage, traditional songs and dances are kept alive by local performers. Visitors can watch – and join – the rhythmic process of sago processing, the staple food of the Ma'ya people.</p>
+          <p style="margin-top:12px;">The forest surrounding Waifoi is rich in wildlife: amphibians, reptiles, and endemic birds fill the canopy and undergrowth. Guided walks into the mangroves and jungle reveal a landscape of extraordinary ecological depth.</p>
+        </div>
+        <div data-lang="id">
+          <p>Waifoi adalah jantung budaya Teluk Mayalibit. Desa ini memiliki rumah adat Ma'ya, tempat berkumpul yang telah menjadi pusat kehidupan komunitas selama generasi. Di sanggar budaya Makai Hun Hat, lagu dan tarian tradisional terus dilestarikan oleh pelaku seni lokal. Pengunjung dapat menyaksikan – dan ikut serta dalam – proses pengolahan sagu, makanan pokok masyarakat Ma'ya.</p>
+          <p style="margin-top:12px;">Hutan di sekitar Waifoi kaya akan satwa liar: amfibi, reptil, dan burung endemik memenuhi kanopi dan semak belukar. Jalan-jalan berpemandu ke mangrove dan hutan mengungkap lanskap dengan kedalaman ekologis yang luar biasa.</p>
+        </div>
+      </div>
       <div class="activity-pills">
         <span class="pill" data-i18n-en="Bird watching" data-i18n-id="Pengamatan burung">Bird watching</span>
         <span class="pill" data-i18n-en="Forest trekking" data-i18n-id="Trekking hutan">Forest trekking</span>
@@ -208,24 +225,35 @@
         <span class="pill" data-i18n-en="Mangroves" data-i18n-id="Mangrove">Mangroves</span>
       </div>
       <div class="village-actions">
-        <a class="action-btn" href="index.html#waifoi" data-i18n-en="View on map" data-i18n-id="Lihat di peta">
-          <i data-lucide="map-pin" style="width:13px;height:13px"></i> View on map
+        <a class="action-btn" href="index.html#waifoi">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i>
+          <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
         </a>
-        <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/" target="_blank" rel="noopener" data-i18n-en="Saupon Homestay" data-i18n-id="Saupon Homestay">
+        <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/" target="_blank" rel="noopener">
           <i data-lucide="external-link" style="width:13px;height:13px"></i> Saupon Homestay
         </a>
       </div>
     </section>
     <div class="village-divider"></div>
 
-    <!-- Warimak -->
+    <!-- ── WARIMAK ── -->
     <section class="village-section" id="warimak">
-      <div class="village-header">
-        <div class="village-name">Warimak</div>
-        <span class="village-tag" data-i18n-en="Into the Wild" data-i18n-id="Alam Liar">Into the Wild</span>
+      <div class="village-photo">
+        <!-- <img src="foto-warimak.jpg" alt="Warimak"> -->
+        <div class="photo-placeholder">Warimak · Photo coming soon</div>
       </div>
-      <p class="village-desc-en">Remote and unhurried, Warimak rewards adventurous visitors with jungle trekking, cave exploration, and exceptional birdwatching amid untouched forest rich in flora and fauna.</p>
-      <p class="village-desc-id">Terpencil dan tenang, Warimak menawarkan trekking hutan, jelajah goa, dan pengamatan burung yang luar biasa di tengah hutan yang kaya flora dan fauna.</p>
+      <div class="village-name">Warimak</div>
+      <span class="village-tag" data-i18n-en="Into the Wild" data-i18n-id="Alam Liar">Into the Wild</span>
+      <div class="village-desc">
+        <div data-lang="en">
+          <p>Remote and unhurried, Warimak is a destination for those who seek the forest on its own terms. Jungle trails wind through primary rainforest rich in botanical variety, leading to caves whose interiors shelter bats and swifts. The birdwatching here is exceptional – patient visitors are rewarded with sightings of species found nowhere else.</p>
+          <p style="margin-top:12px;">The village offers a local homestay through Laensorongga, making it possible to spend a night and experience the quiet rhythms of community life far from the tourist trail.</p>
+        </div>
+        <div data-lang="id">
+          <p>Terpencil dan tenang, Warimak adalah tujuan bagi mereka yang ingin menjelajahi hutan apa adanya. Jalur hutan menembus hutan hujan primer yang kaya ragam tumbuhan, menuju goa-goa yang dihuni kelelawar dan walet. Pengamatan burung di sini sangat luar biasa – pengunjung yang sabar akan mendapat kesempatan melihat spesies yang tidak ditemukan di tempat lain.</p>
+          <p style="margin-top:12px;">Desa ini menawarkan homestay lokal melalui Laensorongga, memungkinkan Anda bermalam dan merasakan ritme kehidupan komunitas yang jauh dari jalur wisata.</p>
+        </div>
+      </div>
       <div class="activity-pills">
         <span class="pill" data-i18n-en="Jungle trekking" data-i18n-id="Trekking hutan">Jungle trekking</span>
         <span class="pill" data-i18n-en="Cave exploration" data-i18n-id="Jelajah goa">Cave exploration</span>
@@ -233,24 +261,35 @@
         <span class="pill" data-i18n-en="Wildlife" data-i18n-id="Satwa liar">Wildlife</span>
       </div>
       <div class="village-actions">
-        <a class="action-btn" href="index.html#warimak" data-i18n-en="View on map" data-i18n-id="Lihat di peta">
-          <i data-lucide="map-pin" style="width:13px;height:13px"></i> View on map
+        <a class="action-btn" href="index.html#warimak">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i>
+          <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
         </a>
-        <a class="action-btn" href="https://maps.app.goo.gl/bXheh3oXwJmD9bFKA" target="_blank" rel="noopener" data-i18n-en="Laensorongga Homestay" data-i18n-id="Laensorongga Homestay">
+        <a class="action-btn" href="https://maps.app.goo.gl/bXheh3oXwJmD9bFKA" target="_blank" rel="noopener">
           <i data-lucide="external-link" style="width:13px;height:13px"></i> Laensorongga Homestay
         </a>
       </div>
     </section>
     <div class="village-divider"></div>
 
-    <!-- Kalitoko -->
+    <!-- ── KALITOKO ── -->
     <section class="village-section" id="kalitoko">
-      <div class="village-header">
-        <div class="village-name">Kalitoko</div>
-        <span class="village-tag" data-i18n-en="River & Forest" data-i18n-id="Sungai & Hutan">River & Forest</span>
+      <div class="village-photo">
+        <!-- <img src="foto-kalitoko.jpg" alt="Kalitoko"> -->
+        <div class="photo-placeholder">Kalitoko · Photo coming soon</div>
       </div>
-      <p class="village-desc-en">Kalitoko sits deep in the bay, where rivers meet mangroves and the forest begins. Ideal for slow travel – trekking, river exploration, and quiet encounters with wildlife.</p>
-      <p class="village-desc-id">Kalitoko terletak jauh di dalam teluk, di mana sungai bertemu mangrove dan hutan dimulai. Cocok untuk perjalanan santai – trekking, jelajah sungai, dan pengamatan satwa.</p>
+      <div class="village-name">Kalitoko</div>
+      <span class="village-tag" data-i18n-en="River & Forest" data-i18n-id="Sungai & Hutan">River & Forest</span>
+      <div class="village-desc">
+        <div data-lang="en">
+          <p>Kalitoko sits deep in the bay, at the point where rivers wind out of the forest and into the mangrove fringe. It is a place for slow travel – for those who find pleasure in following a river upstream, watching the vegetation change, and pausing when a kingfisher crosses the water.</p>
+          <p style="margin-top:12px;">The village is also connected to Reef Guardian's sustainable lobster farming initiative, which supports local livelihoods while protecting the surrounding marine ecosystem. Visitors are welcome to learn about the project directly from the community.</p>
+        </div>
+        <div data-lang="id">
+          <p>Kalitoko terletak jauh di dalam teluk, di titik di mana sungai-sungai mengalir keluar dari hutan menuju pinggiran mangrove. Ini adalah tempat untuk perjalanan santai – bagi mereka yang menikmati menyusuri sungai ke hulu, mengamati perubahan vegetasi, dan berhenti ketika seekor raja udang melintasi air.</p>
+          <p style="margin-top:12px;">Desa ini juga terhubung dengan inisiatif budidaya lobster berkelanjutan Reef Guardian, yang mendukung mata pencaharian lokal sekaligus melindungi ekosistem laut di sekitarnya. Pengunjung dipersilakan untuk mempelajari proyek ini langsung dari komunitas.</p>
+        </div>
+      </div>
       <div class="activity-pills">
         <span class="pill" data-i18n-en="River exploration" data-i18n-id="Jelajah sungai">River exploration</span>
         <span class="pill" data-i18n-en="Mangroves" data-i18n-id="Mangrove">Mangroves</span>
@@ -258,55 +297,78 @@
         <span class="pill" data-i18n-en="Wildlife" data-i18n-id="Satwa liar">Wildlife</span>
       </div>
       <div class="village-actions">
-        <a class="action-btn" href="index.html#kalitoko" data-i18n-en="View on map" data-i18n-id="Lihat di peta">
-          <i data-lucide="map-pin" style="width:13px;height:13px"></i> View on map
+        <a class="action-btn" href="index.html#kalitoko">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i>
+          <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
         </a>
-        <a class="action-btn" href="https://www.instagram.com/labutahomstey/" target="_blank" rel="noopener" data-i18n-en="Labuta Homestay" data-i18n-id="Labuta Homestay">
+        <a class="action-btn" href="https://www.instagram.com/labutahomstey/" target="_blank" rel="noopener">
           <i data-lucide="external-link" style="width:13px;height:13px"></i> Labuta Homestay
         </a>
       </div>
     </section>
     <div class="village-divider"></div>
 
-    <!-- Warsambin -->
+    <!-- ── WARSAMBIN ── -->
     <section class="village-section" id="warsambin">
-      <div class="village-header">
-        <div class="village-name">Warsambin</div>
-        <span class="village-tag" data-i18n-en="Blue Waters & Dance" data-i18n-id="Air Biru & Tarian">Blue Waters & Dance</span>
+      <div class="village-photo">
+        <!-- <img src="foto-warsambin.jpg" alt="Warsambin"> -->
+        <div class="photo-placeholder">Warsambin · Photo coming soon</div>
       </div>
-      <p class="village-desc-en">Warsambin welcomes visitors with traditional dance and the striking blue waters of Kalibiru. The village is also a gateway to mangrove jetty exploration along the bay's eastern shore.</p>
-      <p class="village-desc-id">Warsambin menyambut tamu dengan tarian tradisional dan air biru Kalibiru yang memukau. Desa ini juga menjadi pintu masuk untuk menjelajahi jeti mangrove di pesisir timur teluk.</p>
+      <div class="village-name">Warsambin</div>
+      <span class="village-tag" data-i18n-en="Blue Waters & Dance" data-i18n-id="Air Biru & Tarian">Blue Waters & Dance</span>
+      <div class="village-desc">
+        <div data-lang="en">
+          <p>Warsambin is the first village to welcome visitors arriving from the eastern shore of the bay. Traditional dance performances greet guests on arrival – a custom maintained with genuine pride by the community. Nearby, the striking blue waters of Kalibiru draw those seeking a natural swimming spot of rare beauty.</p>
+          <p style="margin-top:12px;">The village is also a gateway to mangrove jetty exploration along the bay's eastern coastline, where the water is still and the forest comes down to the water's edge.</p>
+        </div>
+        <div data-lang="id">
+          <p>Warsambin adalah desa pertama yang menyambut pengunjung yang datang dari pesisir timur teluk. Pertunjukan tari tradisional menyambut tamu saat tiba – sebuah tradisi yang dijaga dengan kebanggaan nyata oleh komunitas. Di dekatnya, air biru Kalibiru yang memukau menarik mereka yang mencari tempat berenang alami dengan keindahan yang langka.</p>
+          <p style="margin-top:12px;">Desa ini juga menjadi pintu masuk untuk menjelajahi jeti mangrove di sepanjang pantai timur teluk, di mana airnya tenang dan hutan turun hingga ke tepi air.</p>
+        </div>
+      </div>
       <div class="activity-pills">
         <span class="pill" data-i18n-en="Traditional dance" data-i18n-id="Tarian tradisional">Traditional dance</span>
         <span class="pill" data-i18n-en="Kalibiru" data-i18n-id="Kalibiru">Kalibiru</span>
         <span class="pill" data-i18n-en="Mangrove jetty" data-i18n-id="Jeti mangrove">Mangrove jetty</span>
       </div>
       <div class="village-actions">
-        <a class="action-btn" href="index.html#warsambin" data-i18n-en="View on map" data-i18n-id="Lihat di peta">
-          <i data-lucide="map-pin" style="width:13px;height:13px"></i> View on map
+        <a class="action-btn" href="index.html#warsambin">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i>
+          <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
         </a>
       </div>
     </section>
     <div class="village-divider"></div>
 
-    <!-- Mumes -->
+    <!-- ── MUMES ── -->
     <section class="village-section" id="mumes">
-      <div class="village-header">
-        <div class="village-name">Mumes</div>
-        <span class="village-tag" data-i18n-en="Northern Seclusion" data-i18n-id="Ketenangan Utara">Northern Seclusion</span>
+      <div class="village-photo">
+        <!-- <img src="foto-mumes.jpg" alt="Mumes"> -->
+        <div class="photo-placeholder">Mumes · Photo coming soon</div>
       </div>
-      <p class="village-desc-en">Mumes lies at the northern tip of the bay, offering a quiet base for those seeking seclusion – with glamping options and homestays amid pristine nature.</p>
-      <p class="village-desc-id">Mumes terletak di ujung utara teluk, menawarkan ketenangan bagi mereka yang mencari kedamaian – dengan pilihan glamping dan homestay di alam yang masih asri.</p>
+      <div class="village-name">Mumes</div>
+      <span class="village-tag" data-i18n-en="Northern Seclusion" data-i18n-id="Ketenangan Utara">Northern Seclusion</span>
+      <div class="village-desc">
+        <div data-lang="en">
+          <p>Mumes lies at the northern tip of Mayalibit Bay, where the water narrows and the forest closes in on both sides. It is one of the most secluded communities in the bay – a place where the sounds of the forest and water dominate, and where the pace of life moves with the tide.</p>
+          <p style="margin-top:12px;">For visitors seeking an off-grid experience, Mumes offers both a glamping option and local homestays. The Kurawesi Homestay is listed on StayRajaAmpat for those who prefer to plan ahead.</p>
+        </div>
+        <div data-lang="id">
+          <p>Mumes terletak di ujung utara Teluk Mayalibit, di mana air menyempit dan hutan menutup dari kedua sisi. Ini adalah salah satu komunitas paling terpencil di teluk – tempat di mana suara hutan dan air mendominasi, dan di mana ritme kehidupan bergerak mengikuti pasang surut.</p>
+          <p style="margin-top:12px;">Bagi pengunjung yang mencari pengalaman off-grid, Mumes menawarkan pilihan glamping dan homestay lokal. Kurawesi Homestay terdaftar di StayRajaAmpat bagi mereka yang ingin merencanakan lebih awal.</p>
+        </div>
+      </div>
       <div class="activity-pills">
         <span class="pill" data-i18n-en="Glamping" data-i18n-id="Glamping">Glamping</span>
         <span class="pill" data-i18n-en="Homestay" data-i18n-id="Homestay">Homestay</span>
         <span class="pill" data-i18n-en="Nature" data-i18n-id="Alam">Nature</span>
       </div>
       <div class="village-actions">
-        <a class="action-btn" href="index.html#mumes" data-i18n-en="View on map" data-i18n-id="Lihat di peta">
-          <i data-lucide="map-pin" style="width:13px;height:13px"></i> View on map
+        <a class="action-btn" href="index.html#mumes">
+          <i data-lucide="map-pin" style="width:13px;height:13px"></i>
+          <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
         </a>
-        <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/kurawesi-homestay/" target="_blank" rel="noopener" data-i18n-en="Kurawesi Homestay" data-i18n-id="Kurawesi Homestay">
+        <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/kurawesi-homestay/" target="_blank" rel="noopener">
           <i data-lucide="external-link" style="width:13px;height:13px"></i> Kurawesi Homestay
         </a>
       </div>
@@ -319,10 +381,16 @@
 <script>
   lucide.createIcons();
 
+  // Lang-aware description switching
+  function applyDescLang(lang) {
+    document.querySelectorAll('.village-desc [data-lang]').forEach(el => {
+      el.style.display = (el.getAttribute('data-lang') === lang) ? 'block' : 'none';
+    });
+  }
+
   // Sidebar active state on scroll
   const sections = document.querySelectorAll('.village-section');
   const sideLinks = document.querySelectorAll('.sidebar-link');
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -332,20 +400,18 @@
       }
     });
   }, { rootMargin: '-20% 0px -70% 0px' });
-
   sections.forEach(s => observer.observe(s));
 
-  // i18n
+  // Hook into header.js setLang
   document.addEventListener('DOMContentLoaded', () => {
-    function applyPageLang(lang) {
-      document.querySelectorAll('[data-i18n-en]').forEach(el => {
-        const val = lang === 'id' ? el.getAttribute('data-i18n-id') : el.getAttribute('data-i18n-en');
-        if (val) el.textContent = val;
-      });
-    }
-    applyPageLang(currentLang);
-    const origSetLang = setLang;
-    window.setLang = function(lang) { origSetLang(lang); applyPageLang(lang); };
+    const lang = localStorage.getItem('lang') || 'en';
+    applyDescLang(lang);
+
+    const origSetLang = window.setLang;
+    window.setLang = function(lang) {
+      origSetLang(lang);
+      applyDescLang(lang);
+    };
   });
 </script>
 </body>
