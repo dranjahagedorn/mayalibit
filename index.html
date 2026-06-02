@@ -359,6 +359,11 @@
       <div class="gold-bar"></div>
       <div class="panel-desc" id="panel-desc"></div>
       <div class="panel-contact" id="panel-contact"></div>
+      <div style="margin-top: 6px;">
+        <a id="panel-more-btn" class="contact-btn" href="#" style="display:none;">
+          <i data-lucide="arrow-right" style="width:13px;height:13px"></i>More info
+        </a>
+      </div>
       <div class="act-list" id="act-list"></div>
     </div>
     <div class="panel-photo" id="panel-photo">
@@ -536,6 +541,18 @@ function openVillage(id) {
   } else {
     panelContact.innerHTML = '';
     panelContact.style.display = 'none';
+  }
+
+  const villagesWithPage = ['go', 'waifoi', 'warimak', 'kalitoko', 'warsambin', 'mumes'];
+  if (villagesWithPage.includes(id)) {
+    const moreBtn = document.getElementById('panel-more-btn');
+    if (moreBtn) {
+      moreBtn.href = `villages.html#${id}`;
+      moreBtn.style.display = 'inline-flex';
+    }
+  } else {
+    const moreBtn = document.getElementById('panel-more-btn');
+    if (moreBtn) moreBtn.style.display = 'none';
   }
 
   actList.innerHTML = v.activities.map(a => `
