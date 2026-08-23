@@ -49,15 +49,41 @@
   .lang-btn.active { background: var(--navy); color: var(--bg); }
 
   main {
-    max-width: 800px; margin: 60px auto; padding: 0 32px;
+    max-width: 860px; margin: 72px auto 96px; padding: 0 32px;
   }
   main h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 3rem; font-weight: 600; color: var(--navy);
     margin-bottom: 12px;
   }
-  .gold-bar { width: 32px; height: 1.5px; background: var(--gold); border-radius: 1px; margin-bottom: 24px; }
-  main p { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
+  .gold-bar { width: 32px; height: 1.5px; background: var(--gold); border-radius: 1px; margin-bottom: 32px; }
+  .about-copy { max-width: 760px; }
+  .about-copy[hidden] { display: none; }
+  .about-copy p {
+    font-size: 15px; color: var(--text-muted); line-height: 1.85; font-weight: 300;
+  }
+  .about-copy p + p { margin-top: 22px; }
+  .about-copy p:first-child {
+    font-family: 'Cormorant Garamond', serif; font-size: 21px;
+    line-height: 1.55; color: rgba(26,46,60,.82); font-weight: 400;
+  }
+  .about-copy a {
+    color: var(--navy); text-decoration-color: rgba(184,145,90,.7);
+    text-underline-offset: 3px;
+  }
+  .about-copy a:hover { text-decoration-color: var(--gold); }
+
+  @media (max-width: 720px) {
+    header#site-header { height: auto; min-height: 60px; padding: 12px 20px; flex-wrap: wrap; gap: 10px 16px; }
+    nav { order: 3; width: 100%; overflow-x: auto; }
+    .nav-link { padding: 6px 10px; white-space: nowrap; }
+    .nav-link:first-child { padding-left: 0; }
+    .nav-link.active::after { left: 10px; right: 10px; }
+    .nav-link:first-child.active::after { left: 0; }
+    main { margin: 48px auto 72px; padding: 0 22px; }
+    main h1 { font-size: 2.55rem; }
+    .about-copy p:first-child { font-size: 19px; }
+  }
 </style>
 </head>
 <body data-page="about">
@@ -67,21 +93,37 @@
 <main>
   <h1 data-i18n-en="About" data-i18n-id="Tentang">About</h1>
   <div class="gold-bar"></div>
-  <p data-i18n-en="Mayalibit Bay is supported by Reef Guardian e.V., a German NGO working in Raja Ampat, West Papua." data-i18n-id="Teluk Mayalibit didukung oleh Reef Guardian e.V., sebuah LSM Jerman yang bekerja di Raja Ampat, Papua Barat.">Mayalibit Bay is supported by Reef Guardian e.V., a German NGO working in Raja Ampat, West Papua.</p>
+
+  <div class="about-copy" data-lang="en">
+    <p>Mayalibit Bay, located on Waigeo Island in Indonesia’s Raja Ampat archipelago, is a sheltered inlet surrounded by tropical rainforests, mangroves, and traditional villages. Renowned for its rich biodiversity and cultural heritage, the bay offers visitors the opportunity to experience both the region’s unique natural environment and the daily life of its local communities.</p>
+    <p>Community-based tourism plays a central role in the area. Local residents provide homestays, guiding services, cultural activities, and nature-based experiences, enabling visitors to engage directly with the people and traditions of Mayalibit Bay. This approach creates local economic opportunities while supporting the conservation of natural resources and the preservation of cultural heritage.</p>
+    <p>The website <a href="https://mayalibit.com">mayalibit.com</a> is a joint initiative of Reef Guardian e. V., Germany, and Yayasan Kamtabai Raja Ampat, based in Waisai, Indonesia. Through this collaboration, both non-profit organizations seek to strengthen community-based tourism as a sustainable tool for protecting the bay’s marine and forest ecosystems while contributing to the social and economic development of local communities.</p>
+  </div>
+
+  <div class="about-copy" data-lang="id" lang="id" hidden>
+    <p>Teluk Mayalibit, yang terletak di Pulau Waigeo di Kepulauan Raja Ampat, Indonesia, merupakan sebuah teluk yang terlindung dan dikelilingi oleh hutan hujan tropis, hutan mangrove, serta kampung-kampung tradisional. Dikenal karena keanekaragaman hayati dan warisan budayanya yang kaya, teluk ini menawarkan kesempatan bagi pengunjung untuk menikmati keunikan alam sekaligus mengenal kehidupan masyarakat setempat.</p>
+    <p>Pariwisata berbasis masyarakat memegang peranan penting di kawasan ini. Warga lokal menyediakan homestay, layanan pemandu, kegiatan budaya, dan berbagai pengalaman wisata alam yang memungkinkan pengunjung berinteraksi langsung dengan masyarakat serta tradisi Teluk Mayalibit. Pendekatan ini menciptakan peluang ekonomi bagi masyarakat lokal sekaligus mendukung pelestarian sumber daya alam dan warisan budaya.</p>
+    <p>Situs web <a href="https://mayalibit.com">mayalibit.com</a> merupakan inisiatif bersama Reef Guardian e. V. dari Jerman dan Yayasan Kamtabai Raja Ampat yang berbasis di Waisai, Indonesia. Melalui kerja sama ini, kedua organisasi nirlaba berupaya memperkuat pariwisata berbasis masyarakat sebagai sarana berkelanjutan untuk melindungi ekosistem laut dan hutan di Teluk Mayalibit, sekaligus mendorong pembangunan sosial dan ekonomi masyarakat setempat.</p>
+  </div>
 </main>
 
 <script src="header.js"></script>
 <script>
-  // Simple i18n for page-specific content
+  function applyAboutLang(lang) {
+    document.querySelectorAll('.about-copy[data-lang]').forEach(el => {
+      el.hidden = el.getAttribute('data-lang') !== lang;
+    });
+    document.documentElement.lang = lang;
+  }
+
+  const sharedSetLang = window.setLang;
+  window.setLang = function(lang) {
+    sharedSetLang(lang);
+    applyAboutLang(lang);
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    function applyPageLang(lang) {
-      document.querySelectorAll('[data-i18n-en]').forEach(el => {
-        el.textContent = lang === 'id' ? el.getAttribute('data-i18n-id') : el.getAttribute('data-i18n-en');
-      });
-    }
-    applyPageLang(currentLang);
-    const origSetLang = setLang;
-    window.setLang = function(lang) { origSetLang(lang); applyPageLang(lang); };
+    applyAboutLang(localStorage.getItem('lang') || 'en');
   });
 </script>
 </body>
