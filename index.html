@@ -3,7 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mayalibit Bay Tourism</title>
+<title>Mayalibit Bay Tourism | Community Travel in Raja Ampat</title>
+<meta name="description" content="Explore Mayalibit Bay on Waigeo, Raja Ampat: community homestays, village culture, mangroves, wildlife, snorkeling and locally guided adventures.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://mayalibit.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mayalibit Bay Tourism">
+<meta property="og:title" content="Mayalibit Bay Tourism | Community Travel in Raja Ampat">
+<meta property="og:description" content="Discover community-led travel, village culture and nature in Mayalibit Bay on Waigeo, Raja Ampat.">
+<meta property="og:url" content="https://mayalibit.com/">
+<meta property="og:image" content="https://mayalibit.com/assets/images/og-mayalibit-bay.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mayalibit Bay Tourism — Community-led travel in Raja Ampat">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="id_ID">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mayalibit Bay Tourism | Community Travel in Raja Ampat">
+<meta name="twitter:description" content="Discover community-led travel, village culture and nature in Mayalibit Bay on Waigeo, Raja Ampat.">
+<meta name="twitter:image" content="https://mayalibit.com/assets/images/og-mayalibit-bay.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://mayalibit.com/#website",
+      "url": "https://mayalibit.com/",
+      "name": "Mayalibit Bay Tourism",
+      "description": "Community-led travel and nature experiences in Mayalibit Bay, Raja Ampat.",
+      "inLanguage": ["en", "id"]
+    },
+    {
+      "@type": "TouristDestination",
+      "@id": "https://mayalibit.com/#destination",
+      "name": "Mayalibit Bay",
+      "description": "A sheltered bay on Waigeo Island offering community tourism, traditional villages, mangroves, rainforest and marine experiences.",
+      "url": "https://mayalibit.com/",
+      "touristType": ["Community tourism", "Nature tourism", "Cultural tourism"],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -0.18,
+        "longitude": 130.76
+      },
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Raja Ampat, Southwest Papua, Indonesia"
+      }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -29,6 +82,18 @@
     font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--navy);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   /* ── TOPBAR ── */
@@ -382,6 +447,15 @@
 
   /* ── MOBILE ── */
   @media (max-width: 768px) {
+    header {
+      height: auto; min-height: 60px; padding: 12px 20px;
+      flex-wrap: wrap; gap: 10px 16px;
+    }
+    header nav { order: 3; width: 100%; overflow-x: auto; }
+    header .nav-link { padding: 6px 10px; white-space: nowrap; }
+    header .nav-link:first-child { padding-left: 0; }
+    header .nav-link.active::after { left: 10px; right: 10px; }
+    header .nav-link:first-child.active::after { left: 0; }
     .map-wrap {
       height: 42vh;
     }
@@ -432,7 +506,8 @@
 
 <header id="site-header"></header>
 
-<div class="map-wrap">
+<main class="map-wrap">
+  <h1 class="sr-only" data-i18n-en="Explore Mayalibit Bay in Raja Ampat" data-i18n-id="Jelajahi Teluk Mayalibit di Raja Ampat">Explore Mayalibit Bay in Raja Ampat</h1>
 
   <div id="leaflet-map"></div>
 
@@ -463,10 +538,10 @@
     </div>
   </aside>
 
-</div>
+</main>
 
 <div class="mobile-village-list" id="mobile-village-list">
-  <h2>Villages</h2>
+  <h2 data-i18n-en="Villages of Mayalibit Bay" data-i18n-id="Desa-desa di Teluk Mayalibit">Villages of Mayalibit Bay</h2>
 </div>
 
 <script>
@@ -475,72 +550,78 @@ const villages = {
   go: {
     name: "Go",
     lat: -0.0784895, lon: 130.6647536,
-    desc_en: "A lively village at the bay's southern entrance – snorkel crystal-clear waters, kayak by traditional canoe, spot dolphins, explore waterfalls and mangroves, and visit local weavers onshore.",
-    desc_id: "Desa Go di pintu masuk selatan teluk menawarkan snorkeling, kayak dengan perahu tradisional, pengamatan lumba-lumba, air terjun, dan jelajah mangrove – serta kunjungan ke pengrajin anyaman lokal.",
+    desc_en: "Surrounded by mangroves and green hills, Go lies on the northern shore of Mayalibit Bay. The village is a starting point for trekking, kayaking and exploring the natural attractions of Waigeo’s rugged northern region.",
+    desc_id: "Dikelilingi hutan mangrove dan perbukitan hijau, Kampung Go terletak di pesisir utara Teluk Mayalibit. Kampung ini menjadi titik awal untuk trekking, berkayak, dan menjelajahi berbagai daya tarik alam di wilayah utara Waigeo yang terjal.",
     activities: [
-      { icon: "trees",      name: "Forest Walks",   sub_en: "Forest Walks", sub_id: "Jalan alam" },
-      { icon: "fish",       name: "Fishing",        sub_en: "Fishing", sub_id: "Memancing" },
-      { icon: "binoculars", name: "Bird Watching",  sub_en: "Bird Watching", sub_id: "Pengamatan burung" },
+      { icon: "footprints", name: "Trekking",       sub_en: "Trekking", sub_id: "Trekking" },
+      { icon: "sailboat",   name: "Kayaking",       sub_en: "Kayaking", sub_id: "Berkayak" },
+      { icon: "binoculars", name: "Birdwatching",   sub_en: "Birdwatching", sub_id: "Pengamatan burung" },
+      { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
     ],
     photo: null
   },
   kabilol: {
     name: "Kabilol",
     lat: -0.1135379, lon: 130.6411137,
-    desc_en: "A secluded village known for its mangrove forests and traditional canoe building craftsmanship.",
-    desc_id: "A secluded village known for its mangrove forests and traditional canoe building craftsmanship.",
+    desc_en: "Kabilol is a secluded village surrounded by mangrove forests and known for its tradition of canoe building.",
+    desc_id: "Kabilol merupakan kampung terpencil yang dikelilingi hutan mangrove dan dikenal dengan tradisi pembuatan kano.",
     activities: [
-      { icon: "sailboat",   name: "Canoe Building", sub_en: "Canoe Building", sub_id: "Kerajinan perahu" },
-      { icon: "leaf",       name: "Mangrove Tour",  sub_en: "Mangrove Tour", sub_id: "Wisata mangrove" },
+      { icon: "sailboat",   name: "Canoe Building", sub_en: "Traditional canoe building", sub_id: "Pembuatan kano tradisional" },
       { icon: "fish",       name: "Fishing",        sub_en: "Fishing", sub_id: "Memancing" },
+      { icon: "wheat",      name: "Sago",           sub_en: "Sago harvesting", sub_id: "Pemanenan sagu" },
+      { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
     ],
     photo: null
   },
   arawai: {
     name: "Arawai",
     lat: -0.1496432, lon: 130.6267899,
-    desc_en: "Gateway village on the western bay shores, surrounded by pristine jungle and rich marine life.",
-    desc_id: "Gateway village on the western bay shores, surrounded by pristine jungle and rich marine life.",
+    desc_en: "Arawai is a quiet village on the western shore of Mayalibit Bay, surrounded by rainforest, mangroves and rich coastal waters. It is a starting point for exploring the natural landscapes and community life of the western bay.",
+    desc_id: "Arawai merupakan kampung yang tenang di pesisir barat Teluk Mayalibit, dikelilingi hutan hujan, hutan mangrove, dan perairan pesisir yang kaya. Kampung ini menjadi titik awal untuk menjelajahi alam dan kehidupan masyarakat di bagian barat teluk.",
     activities: [
-      { icon: "waves",      name: "Snorkeling",     sub_en: "Snorkeling", sub_id: "Menyelam" },
-      { icon: "trees",      name: "Nature Walks",   sub_en: "Nature Walks", sub_id: "Jalan alam" },
-      { icon: "anchor",     name: "Boat Tours",     sub_en: "Boat Tours", sub_id: "Tour laut" },
+      { icon: "fish",       name: "Fishing",        sub_en: "Fishing", sub_id: "Memancing" },
+      { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
+      { icon: "trees",      name: "Forest Walks",   sub_en: "Forest walks", sub_id: "Jelajah hutan" },
+      { icon: "mountain",   name: "Viewpoint",      sub_en: "Viewpoint", sub_id: "Titik pandang" },
     ],
     photo: null
   },
   beo: {
     name: "Beo",
     lat: -0.1367313, lon: 130.6813954,
-    desc_en: "A small community in the heart of Mayalibit Bay with access to traditional craft weaving and jungle trails.",
-    desc_id: "A small community in the heart of Mayalibit Bay with access to traditional craft weaving and jungle trails.",
+    desc_en: "Beo is a small Ma’ya community in the heart of Mayalibit Bay, offering insights into traditional weaving and fishing as well as access to mangrove waterways and jungle trails.",
+    desc_id: "Beo merupakan kampung kecil masyarakat Ma’ya di jantung Teluk Mayalibit. Kampung ini menawarkan kesempatan untuk mengenal tradisi menganyam dan menangkap ikan serta menjelajahi perairan mangrove dan jalur-jalur hutan.",
     activities: [
-      { icon: "footprints", name: "Jungle Trekking",sub_en: "Jungle Trekking", sub_id: "Pendakian hutan" },
-      { icon: "music",      name: "Cultural Events",sub_en: "Cultural Events", sub_id: "Acara budaya" },
-      { icon: "waves",      name: "Snorkeling",     sub_en: "Menyelam", sub_id: "Snorkeling" },
+      { icon: "palette",    name: "Weaving",        sub_en: "Traditional weaving", sub_id: "Kerajinan anyaman" },
+      { icon: "fish",       name: "Fishing",        sub_en: "Fishing", sub_id: "Memancing" },
+      { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
+      { icon: "trees",      name: "Jungle Walks",   sub_en: "Jungle walks", sub_id: "Jelajah hutan" },
     ],
     photo: null
   },
   waifoi: {
     name: "Waifoi",
     lat: -0.1002787, lon: 130.7141854,
-    desc_en: "Waifoi is the cultural heart of Mayalibit Bay – home to a Ma'ya ancestral house, traditional sago processing, and the Makai Hun Hat cultural stage. The surrounding forest and mangroves shelter rich wildlife, from amphibians to endemic birds.",
-    desc_id: "Waifoi adalah jantung budaya Teluk Mayalibit – dengan rumah adat Ma'ya, pengolahan sagu tradisional, dan sanggar budaya Makai Hun Hat. Hutan dan mangrove di sekitarnya menjadi habitat satwa liar yang kaya.",
+    desc_en: "Waifoi is a cultural and ecological highlight of Mayalibit Bay, offering insights into Ma’ya traditions, sago-making experiences and guided walks through wildlife-rich rainforest and mangroves.",
+    desc_id: "Waifoi merupakan salah satu daya tarik budaya dan alam di Teluk Mayalibit. Pengunjung dapat mengenal tradisi masyarakat Ma’ya, mengikuti proses pembuatan sagu, serta menjelajahi hutan hujan dan hutan mangrove yang kaya akan satwa liar bersama pemandu lokal.",
     activities: [
-      { icon: "binoculars", name: "Bird Watching",  sub_en: "Tem mani", sub_id: "Pengamatan burung" },
-      { icon: "trees",      name: "Forest Trekking",sub_en: "Forest Trekking", sub_id: "Pendakian hutan" },
-      { icon: "sailboat",   name: "Canoe Trips",    sub_en: "Canoe Trips", sub_id: "Kayak" },
+      { icon: "landmark",   name: "Culture",        sub_en: "Ma’ya culture", sub_id: "Budaya Ma’ya" },
+      { icon: "wheat",      name: "Sago",           sub_en: "Sago making", sub_id: "Pembuatan sagu" },
+      { icon: "binoculars", name: "Birdwatching",   sub_en: "Birdwatching", sub_id: "Pengamatan burung" },
+      { icon: "mountain",   name: "Viewpoints",     sub_en: "Waterfalls & viewpoints", sub_id: "Air terjun & titik pandang" },
     ],
     photo: null
   },
   warimak: {
     name: "Warimak",
     lat: -0.1453863, lon: 130.7363123,
-    desc_en: "Remote and unhurried, Warimak rewards adventurous visitors with jungle trekking, cave exploration, and exceptional birdwatching amid untouched forest rich in flora and fauna.",
-    desc_id: "Terpencil dan tenang, Warimak menawarkan trekking hutan, jelajah goa, dan pengamatan burung yang luar biasa di tengah hutan yang kaya flora dan fauna.",
+    desc_en: "Remote and unhurried, Warimak rewards adventurous visitors with jungle trekking, cave exploration and exceptional birdwatching in a wildlife-rich rainforest.",
+    desc_id: "Terpencil dan tenang, Warimak menawarkan trekking hutan, penjelajahan gua, dan pengamatan burung yang luar biasa di tengah hutan hujan yang kaya akan keanekaragaman hayati.",
     activities: [
-      { icon: "house",      name: "Homestay",       sub_en: "Homestay", sub_id: "Homestay lokal" },
-      { icon: "binoculars", name: "Bird Watching",  sub_en: "Tem mani", sub_id: "Pengamatan burung" },
-      { icon: "footprints", name: "Hiking",         sub_en: "Hiking", sub_id: "Lintas alam" },
+      { icon: "footprints", name: "Trekking",       sub_en: "Jungle trekking", sub_id: "Trekking hutan" },
+      { icon: "mountain",   name: "Caves",          sub_en: "Cave exploration", sub_id: "Penjelajahan gua" },
+      { icon: "binoculars", name: "Birdwatching",   sub_en: "Birdwatching", sub_id: "Pengamatan burung" },
+      { icon: "paw-print",  name: "Wildlife",       sub_en: "Wildlife observation", sub_id: "Pengamatan satwa liar" },
     ],
     photo: "assets/images/warimak-laura-arnold.jpg",
     photoCredit: "Laura Arnold",
@@ -550,12 +631,13 @@ const villages = {
   kalitoko: {
     name: "Kalitoko",
     lat: -0.2240712, lon: 130.8025038,
-    desc_en: "Kalitoko sits deep in the bay, where rivers meet mangroves and the forest begins. Ideal for slow travel – trekking, river exploration, and quiet encounters with wildlife.",
-    desc_id: "Kalitoko terletak jauh di dalam teluk, di mana sungai bertemu mangrove dan hutan dimulai. Cocok untuk perjalanan santai – trekking, jelajah sungai, dan pengamatan satwa.",
+    desc_en: "Kalitoko offers river and mangrove excursions, tropical forest trekking and birdwatching amid the well-preserved natural landscapes of Mayalibit Bay.",
+    desc_id: "Kalitoko menawarkan jelajah sungai dan hutan mangrove, trekking di hutan tropis, serta pengamatan burung di tengah bentang alam Teluk Mayalibit yang masih terjaga.",
     activities: [
-      { icon: "fish",       name: "Lobster Farm Tour",sub_en: "Lobster Farm Tour", sub_id: "Budidaya lobster" },
-      { icon: "waves",      name: "Snorkeling",       sub_en: "Snorkeling", sub_id: "Menyelam" },
-      { icon: "anchor",     name: "Fishing",          sub_en: "Fishing", sub_id: "Memancing" },
+      { icon: "waves",      name: "Rivers",         sub_en: "River exploration", sub_id: "Jelajah sungai" },
+      { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
+      { icon: "footprints", name: "Trekking",       sub_en: "Forest trekking", sub_id: "Trekking hutan" },
+      { icon: "binoculars", name: "Birdwatching",   sub_en: "Birdwatching", sub_id: "Pengamatan burung" },
     ],
     photo: "assets/images/kalitoko-raja-ampat-archaeological-project.jpg",
     photoCredit: "Raja Ampat Archaeological Project",
@@ -565,36 +647,38 @@ const villages = {
   warsambin: {
     name: "Warsambin",
     lat: -0.3188912, lon: 130.9188419,
-    desc_en: "Warsambin welcomes visitors with traditional dance and the striking blue waters of Kalibiru. The village is also a gateway to mangrove jetty exploration along the bay's eastern shore.",
-    desc_id: "Warsambin menyambut tamu dengan tarian tradisional dan air biru Kalibiru yang memukau. Desa ini juga menjadi pintu masuk untuk menjelajahi jeti mangrove di pesisir timur teluk.",
+    desc_en: "Warsambin is the gateway to Kali Biru, Mayalibit Bay’s famous blue-green river. The village is also a starting point for exploring the southern part of the bay, its mangrove-lined shores and tranquil coastal landscapes.",
+    desc_id: "Warsambin merupakan gerbang menuju Kali Biru, sungai berwarna biru kehijauan yang terkenal di Teluk Mayalibit. Kampung ini juga menjadi titik awal untuk menjelajahi bagian selatan teluk, pesisir berhutan mangrove, dan lanskap pantai yang tenang.",
     activities: [
-      { icon: "sailboat",   name: "Canoe Tours",    sub_en: "Canoe Tours", sub_id: "Kayak" },
-      { icon: "leaf",       name: "Nature Walks",   sub_en: "Nature Walks", sub_id: "Jalan alam" },
-      { icon: "anchor",     name: "Fishing",        sub_en: "Memancing", sub_id: "Fishing" },
+      { icon: "waves",      name: "Swimming",      sub_en: "Swimming", sub_id: "Berenang" },
+      { icon: "music",      name: "Welcome Dance", sub_en: "Traditional welcome dance", sub_id: "Tarian penyambutan tradisional" },
+      { icon: "leaf",       name: "Mangroves",     sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
     ],
     photo: null
   },
   lopintol: {
     name: "Lopintol",
     lat: -0.3164116, lon: 130.8954175,
-    desc_en: "A small fishing community known for traditional weaving and pristine coral reef snorkeling.",
-    desc_id: "A small fishing community known for traditional weaving and pristine coral reef snorkeling.",
+    desc_en: "Lopintol is a village on the western shore of Mayalibit Bay, offering forest trekking, karst cave exploration, waterfalls and nature experiences amid Waigeo’s remarkable landscapes.",
+    desc_id: "Lopintol merupakan kampung di pesisir barat Teluk Mayalibit yang menawarkan trekking hutan, penjelajahan gua karst, air terjun, dan pengalaman alam di tengah bentang alam Waigeo yang mengagumkan.",
     activities: [
-      { icon: "waves",      name: "Snorkeling",        sub_en: "Snorkeling", sub_id: "Menyelam" },
-      { icon: "compass",    name: "Guided Walks",      sub_en: "Guided Walks", sub_id: "Panduan alam" },
-      { icon: "music",      name: "Traditional Music", sub_en: "Traditional Music", sub_id: "Musik adat" },
+      { icon: "footprints", name: "Trekking",       sub_en: "Forest trekking", sub_id: "Trekking hutan" },
+      { icon: "mountain",   name: "Caves",          sub_en: "Cave exploration", sub_id: "Penjelajahan gua" },
+      { icon: "paw-print",  name: "Wildlife",       sub_en: "Wildlife observation", sub_id: "Pengamatan satwa liar" },
+      { icon: "waves",      name: "Waterfalls",     sub_en: "Waterfalls", sub_id: "Air terjun" },
     ],
     photo: null
   },
   mumes: {
     name: "Mumes",
     lat: -0.305, lon: 130.940,
-    desc_en: "Mumes lies at the northern tip of the bay, offering a quiet base for those seeking seclusion – with glamping options and homestays amid pristine nature.",
-    desc_id: "Mumes terletak di ujung utara teluk, menawarkan ketenangan bagi mereka yang mencari kedamaian – dengan pilihan glamping dan homestay di alam yang masih asri.",
+    desc_en: "Located near the southern entrance to Mayalibit Bay, Mumes is a peaceful Ma’ya village surrounded by mangroves, sheltered waters and rich coastal ecosystems. A nearby glamping option allows visitors to stay close to nature.",
+    desc_id: "Terletak di dekat pintu masuk selatan Teluk Mayalibit, Mumes merupakan kampung masyarakat Ma’ya yang tenang, dikelilingi hutan mangrove, perairan yang terlindung, dan ekosistem pesisir yang kaya. Pilihan glamping di sekitar kampung memungkinkan pengunjung untuk menginap lebih dekat dengan alam.",
     activities: [
-      { icon: "waves",      name: "Diving",         sub_en: "Diving", sub_id: "Menyelam" },
-      { icon: "fish",       name: "Fishing",        sub_en: "Memancing", sub_id: "Fishing" },
-      { icon: "compass",    name: "Guided Tours",   sub_en: "Guided Tours", sub_id: "Panduan wisata" },
+      { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove exploration", sub_id: "Jelajah hutan mangrove" },
+      { icon: "fish",       name: "Fishing",        sub_en: "Fishing", sub_id: "Memancing" },
+      { icon: "footprints", name: "Trekking",       sub_en: "Forest trekking", sub_id: "Trekking hutan" },
+      { icon: "tent-tree",  name: "Glamping",       sub_en: "Glamping", sub_id: "Glamping" },
     ],
     photo: null
   },
@@ -632,7 +716,8 @@ function openVillage(id) {
   if (!v) return;
 
   panelName.textContent = v.name;
-  panelDesc.textContent = (typeof currentLang !== "undefined" && currentLang === "id") ? v.desc_id : v.desc_en;
+  const selectedLang = localStorage.getItem('lang') || 'en';
+  panelDesc.textContent = selectedLang === 'id' ? v.desc_id : v.desc_en;
 
   if (v.contact) {
     let html = '';
@@ -653,7 +738,7 @@ function openVillage(id) {
     panelContact.style.display = 'none';
   }
 
-  const villagesWithPage = ['go', 'waifoi', 'warimak', 'kalitoko', 'warsambin', 'mumes'];
+  const villagesWithPage = ['go', 'kabilol', 'arawai', 'beo', 'waifoi', 'warimak', 'kalitoko', 'warsambin', 'lopintol', 'mumes'];
   if (villagesWithPage.includes(id)) {
     const moreBtn = document.getElementById('panel-more-btn');
     if (moreBtn) {
@@ -670,7 +755,7 @@ function openVillage(id) {
       <div class="act-icon"><i data-lucide="${a.icon}" style="width:16px;height:16px"></i></div>
       <div>
         <div class="act-name">${a.name}</div>
-        <div class="act-sub">${typeof currentLang !== 'undefined' && currentLang === 'id' ? a.sub_id : a.sub_en}</div>
+        <div class="act-sub">${selectedLang === 'id' ? a.sub_id : a.sub_en}</div>
       </div>
     </div>
   `).join('');
@@ -679,7 +764,7 @@ function openVillage(id) {
     const credit = v.photoCredit && v.photoSource
       ? `<a class="photo-credit" href="${v.photoSource}" target="_blank" rel="noopener">© ${v.photoCredit}</a>`
       : '';
-    panelPhoto.innerHTML = `<img src="${v.photo}" alt="${v.name}"><span class="photo-label">${v.name}</span>${credit}`;
+    panelPhoto.innerHTML = `<img src="${v.photo}" alt="${v.name} village in Mayalibit Bay, Raja Ampat" loading="lazy" decoding="async"><span class="photo-label">${v.name}</span>${credit}`;
   } else {
     panelPhoto.innerHTML = `<span class="photo-label">Village photo</span>`;
   }
@@ -783,6 +868,13 @@ L.marker([-0.04973, 130.60824], { icon: L.divIcon({
         _origOpenVillage(_currentVillageId);
       }
     };
+
+    const initialVillageId = decodeURIComponent(window.location.hash.slice(1));
+    if (villages[initialVillageId]) {
+      const village = villages[initialVillageId];
+      map.setView([village.lat, village.lon], 13);
+      window.openVillage(initialVillageId);
+    }
   });
 </script>
 </body>
