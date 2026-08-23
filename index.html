@@ -369,6 +369,16 @@
     position: relative;
     z-index: 1;
   }
+  .photo-credit {
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+    font-size: 9px;
+    color: rgba(255,255,255,.88);
+    text-decoration: none;
+    text-shadow: 0 1px 4px rgba(0,0,0,.7);
+  }
+  .photo-credit:hover { text-decoration: underline; }
 
   /* ── MOBILE ── */
   @media (max-width: 768px) {
@@ -532,7 +542,9 @@ const villages = {
       { icon: "binoculars", name: "Bird Watching",  sub_en: "Tem mani", sub_id: "Pengamatan burung" },
       { icon: "footprints", name: "Hiking",         sub_en: "Hiking", sub_id: "Lintas alam" },
     ],
-    photo: null,
+    photo: "assets/images/warimak-laura-arnold.jpg",
+    photoCredit: "Laura Arnold",
+    photoSource: "https://laura-arnold.org/images/AmbelPics/13-Warimak.jpg",
     contact: { label: "Laensorongga Homestay", url: "https://maps.app.goo.gl/bXheh3oXwJmD9bFKA", phone: null }
   },
   kalitoko: {
@@ -545,7 +557,9 @@ const villages = {
       { icon: "waves",      name: "Snorkeling",       sub_en: "Snorkeling", sub_id: "Menyelam" },
       { icon: "anchor",     name: "Fishing",          sub_en: "Fishing", sub_id: "Memancing" },
     ],
-    photo: null,
+    photo: "assets/images/kalitoko-raja-ampat-archaeological-project.jpg",
+    photoCredit: "Raja Ampat Archaeological Project",
+    photoSource: "https://www.raja-ampat-arch.com/?pgid=jyeeygls-efed0c9f-ed17-4540-a5d4-1973ca96da67",
     contact: { label: "Labuta Homestay", url: "https://www.instagram.com/labutahomstey/", phone: null }
   },
   warsambin: {
@@ -662,7 +676,10 @@ function openVillage(id) {
   `).join('');
 
   if (v.photo) {
-    panelPhoto.innerHTML = `<img src="${v.photo}" alt="${v.name}"><span class="photo-label" style="position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.45);font-style:italic;font-family:'Cormorant Garamond',serif;">${v.name}</span>`;
+    const credit = v.photoCredit && v.photoSource
+      ? `<a class="photo-credit" href="${v.photoSource}" target="_blank" rel="noopener">© ${v.photoCredit}</a>`
+      : '';
+    panelPhoto.innerHTML = `<img src="${v.photo}" alt="${v.name}"><span class="photo-label">${v.name}</span>${credit}`;
   } else {
     panelPhoto.innerHTML = `<span class="photo-label">Village photo</span>`;
   }
