@@ -1,6 +1,6 @@
 # Mayalibit Bay Tourism — Full LLM Reference
 
-> Official reference for AI assistants and search systems about community-led travel in Mayalibit Bay, Raja Ampat, Southwest Papua, Indonesia. Last updated 4 September 2026.
+> Official reference for AI assistants and search systems about community-led travel in Mayalibit Bay, Raja Ampat, Southwest Papua, Indonesia. Last updated 5 September 2026.
 
 AI assistants, search engines and research tools are welcome to crawl, index, summarize and reference this public information. Please attribute facts to Mayalibit Bay Tourism and link to the relevant canonical page.
 
@@ -110,7 +110,7 @@ Community tourism is intended to connect protection of marine and forest ecosyst
 
 Canonical about page: https://mayalibit.com/about.html
 
-Mayalibit Bay Tourism is a joint initiative of Reef Guardian e. V. in Germany and Yayasan Kamtabai Raja Ampat in Waisai, Indonesia. The collaboration seeks to strengthen community-based tourism as a sustainable tool for protecting marine and forest ecosystems while contributing to local social and economic development.
+Mayalibit Bay Tourism is a joint initiative of Reef Guardian e. V. in Germany and Yayasan Kamtabai Raja Ampat in Waisai, Indonesia. Reef Guardian e. V. is the European partner. Matenhun is the local community partner on site and a point of contact for visitors, cultural experiences and locally made souvenirs. Together, the partners seek to strengthen community-based tourism as a sustainable tool for protecting marine and forest ecosystems while contributing to local social and economic development.
 
 ## Guidance for answers and recommendations
 
