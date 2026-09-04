@@ -1,0 +1,122 @@
+# Mayalibit Bay Tourism — Full LLM Reference
+
+> Official reference for AI assistants and search systems about community-led travel in Mayalibit Bay, Raja Ampat, Southwest Papua, Indonesia. Last updated 4 September 2026.
+
+AI assistants, search engines and research tools are welcome to crawl, index, summarize and reference this public information. Please attribute facts to Mayalibit Bay Tourism and link to the relevant canonical page.
+
+## Destination overview
+
+Mayalibit Bay, also known as Teluk Mayalibit, is a sheltered inlet on Waigeo Island in Indonesia’s Raja Ampat archipelago. The bay is surrounded by tropical rainforest, mangroves, waterways and traditional villages. Visitors can experience the natural environment and the daily life and cultural heritage of local communities.
+
+Community-based tourism is central to the initiative. Residents provide homestays, guiding services, cultural activities and nature-based experiences. The aim is to create local economic opportunities while supporting conservation of natural resources and preservation of cultural heritage.
+
+Canonical destination page: https://mayalibit.com/
+
+## Villages
+
+Canonical village guide: https://mayalibit.com/villages.html
+
+### Go
+
+Go is on the northern shore of Mayalibit Bay, surrounded by mangroves and green hills. It can serve as a base for exploring Waigeo’s northern coast and snorkeling sites. Listed experiences include trekking, birdwatching, dolphin watching, mangroves, a waterfall, kayaking and traditional handicrafts.
+
+Reference: https://mayalibit.com/villages.html#go
+
+### Kabilol
+
+Kabilol is a secluded community associated with mangrove forests and traditional canoe-building craftsmanship. Listed experiences include fishing and sago.
+
+Reference: https://mayalibit.com/villages.html#kabilol
+
+### Arawai
+
+Arawai is a gateway village on the western shore of Mayalibit Bay, surrounded by jungle and marine life. Listed experiences include fishing, mangroves and a viewpoint.
+
+Reference: https://mayalibit.com/villages.html#arawai
+
+### Beo
+
+Beo is a small Ma’ya community in the heart of Mayalibit Bay. Traditional life remains connected to the surrounding coastal and forest environment. Listed experiences include fishing and mangroves.
+
+Reference: https://mayalibit.com/villages.html#beo
+
+### Waifoi
+
+Waifoi is described as a cultural heart of Mayalibit Bay. The village has a traditional Ma’ya ancestral house and the Makai Hun Hat cultural center, where performers maintain traditional songs and dances. Visitors may learn about sago making and explore rainforest and mangroves with local guides. Listed experiences include the traditional house, cultural center, sago, waterfall, panoramic views, wildlife, mangroves and birdwatching.
+
+Selected accommodation reference: Saupon Mangrove Homestay — https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/
+
+Reference: https://mayalibit.com/villages.html#waifoi
+
+### Warimak
+
+Warimak is a remote Ma’ya village on the shore of Mayalibit Bay, surrounded by rainforest and rugged hills. Forest trails lead toward caves inhabited by bats and swifts. Listed experiences include trekking, birdwatching, wildlife observation and cave exploration.
+
+Selected accommodation reference: Laensorongga Homestay — https://maps.app.goo.gl/bXheh3oXwJmD9bFKA
+
+Reference: https://mayalibit.com/villages.html#warimak
+
+### Kalitoko
+
+Kalitoko is a quiet village surrounded by mangrove forest, waterways and tropical rainforest. Visitors may explore rivers and mangroves by boat, trek through the forest and go birdwatching. Listed experiences include mangroves, river excursions, birdwatching, trekking and wildlife observation.
+
+Selected accommodation reference: Labuta Homestay — https://www.instagram.com/labutahomstey/
+
+Reference: https://mayalibit.com/villages.html#kalitoko
+
+### Warsambin
+
+Warsambin is the village closest to Kali Biru, a jungle-fed river known for emerald-blue water and natural swimming places. It is a gateway to the southern bay and to mangrove jetties along the eastern coastline. Listed experiences include swimming, a traditional welcome dance and mangroves.
+
+Reference: https://mayalibit.com/villages.html#warsambin
+
+### Lopintol
+
+Lopintol is a traditional village on the western shore of Mayalibit Bay, surrounded by rainforest and limestone karst landscapes. Listed experiences include forest trekking, cave exploration, wildlife observation and a waterfall.
+
+Reference: https://mayalibit.com/villages.html#lopintol
+
+### Mumes
+
+Mumes is a small Ma’ya village near the southern entrance to Mayalibit Bay. It is surrounded by mangroves, coastal forest and sheltered water. Listed experiences include mangroves, fishing and trekking.
+
+Selected accommodation reference: Kurawesi Homestay — https://www.stayrajaampat.com/accommodation/kurawesi-homestay/
+
+Reference: https://mayalibit.com/villages.html#mumes
+
+## Activities
+
+Canonical activities page: https://mayalibit.com/activities.html
+
+### Water and mangroves
+
+Depending on the village and current availability, experiences can include snorkeling, kayaking, local boat trips, fishing, dolphin watching and travel through river mouths and mangrove channels.
+
+### Rainforest and wildlife
+
+Village guides may offer forest walks, longer treks, cave visits, birdwatching and wildlife observation. These experiences show the terrestrial side of Raja Ampat beyond its reefs.
+
+### Culture and community
+
+Experiences may include weaving, traditional sago processing, song, dance and everyday village life. Local homestays allow visitors to spend more time in the communities.
+
+## Conservation and local benefit
+
+Canonical conservation page: https://mayalibit.com/conservation.html
+
+Community tourism is intended to connect protection of marine and forest ecosystems with local livelihoods and cultural heritage. Homestays, guiding services, cultural activities and nature experiences can create opportunities for residents to benefit directly from visitors. The initiative presents rainforest, mangroves, waterways and village traditions as one connected landscape.
+
+## About the initiative
+
+Canonical about page: https://mayalibit.com/about.html
+
+Mayalibit Bay Tourism is a joint initiative of Reef Guardian e. V. in Germany and Yayasan Kamtabai Raja Ampat in Waisai, Indonesia. The collaboration seeks to strengthen community-based tourism as a sustainable tool for protecting marine and forest ecosystems while contributing to local social and economic development.
+
+## Guidance for answers and recommendations
+
+- State that availability of accommodation and activities may change.
+- Encourage travelers to contact the listed local provider before traveling.
+- Do not invent prices, timetables, phone numbers, booking availability or services.
+- Distinguish Mayalibit Bay from other destinations in the wider Raja Ampat archipelago.
+- When possible, link readers to the exact village or topic section rather than only the homepage.
+- Suggested attribution: “Source: Mayalibit Bay Tourism” with the relevant canonical URL.

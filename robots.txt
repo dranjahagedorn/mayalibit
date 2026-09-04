@@ -1,3 +1,28 @@
+# Mayalibit Bay Tourism welcomes search engines and AI assistants.
+# AI-readable site guide: https://mayalibit.com/llms.txt
+
+# OpenAI search, user requests and model crawler
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+Allow: /
+
+# Anthropic search, user requests and model crawler
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: ClaudeBot
+Allow: /
+
+# Perplexity search and user requests
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI use control
+User-agent: Google-Extended
+Allow: /
+
+# All other search engines and agents
 User-agent: *
 Allow: /
 
