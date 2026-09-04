@@ -3,16 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#EDEAE3">
 <title>Mayalibit Bay Tourism | Community Travel in Raja Ampat</title>
 <meta name="description" content="Explore Mayalibit Bay on Waigeo, Raja Ampat: community homestays, village culture, mangroves, wildlife, snorkeling and locally guided adventures.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://mayalibit.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mayalibit Bay Tourism">
 <meta property="og:title" content="Mayalibit Bay Tourism | Community Travel in Raja Ampat">
 <meta property="og:description" content="Discover community-led travel, village culture and nature in Mayalibit Bay on Waigeo, Raja Ampat.">
 <meta property="og:url" content="https://mayalibit.com/">
 <meta property="og:image" content="https://mayalibit.com/assets/images/og-mayalibit-bay.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Mayalibit Bay Tourism — Community-led travel in Raja Ampat">
@@ -22,6 +26,7 @@
 <meta name="twitter:title" content="Mayalibit Bay Tourism | Community Travel in Raja Ampat">
 <meta name="twitter:description" content="Discover community-led travel, village culture and nature in Mayalibit Bay on Waigeo, Raja Ampat.">
 <meta name="twitter:image" content="https://mayalibit.com/assets/images/og-mayalibit-bay.png">
+<meta name="twitter:image:alt" content="Mayalibit Bay Tourism — Community-led travel in Raja Ampat">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,14 +37,31 @@
       "url": "https://mayalibit.com/",
       "name": "Mayalibit Bay Tourism",
       "description": "Community-led travel and nature experiences in Mayalibit Bay, Raja Ampat.",
+      "inLanguage": ["en", "id"],
+      "publisher": [
+        {"@id": "https://mayalibit.com/#reef-guardian"},
+        {"@id": "https://mayalibit.com/#yayasan-kamtabai"}
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://mayalibit.com/#webpage",
+      "url": "https://mayalibit.com/",
+      "name": "Mayalibit Bay Tourism | Community Travel in Raja Ampat",
+      "description": "Explore Mayalibit Bay on Waigeo, Raja Ampat: community homestays, village culture, mangroves, wildlife, snorkeling and locally guided adventures.",
+      "isPartOf": {"@id": "https://mayalibit.com/#website"},
+      "about": {"@id": "https://mayalibit.com/#destination"},
+      "primaryImageOfPage": {"@id": "https://mayalibit.com/#social-image"},
       "inLanguage": ["en", "id"]
     },
     {
       "@type": "TouristDestination",
       "@id": "https://mayalibit.com/#destination",
       "name": "Mayalibit Bay",
+      "alternateName": "Teluk Mayalibit",
       "description": "A sheltered bay on Waigeo Island offering community tourism, traditional villages, mangroves, rainforest and marine experiences.",
       "url": "https://mayalibit.com/",
+      "image": {"@id": "https://mayalibit.com/#social-image"},
       "touristType": ["Community tourism", "Nature tourism", "Cultural tourism"],
       "geo": {
         "@type": "GeoCoordinates",
@@ -50,6 +72,25 @@
         "@type": "AdministrativeArea",
         "name": "Raja Ampat, Southwest Papua, Indonesia"
       }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://mayalibit.com/#social-image",
+      "url": "https://mayalibit.com/assets/images/og-mayalibit-bay.png",
+      "contentUrl": "https://mayalibit.com/assets/images/og-mayalibit-bay.png",
+      "width": 1200,
+      "height": 630,
+      "caption": "Mayalibit Bay Tourism — Community-led travel in Raja Ampat"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://mayalibit.com/#reef-guardian",
+      "name": "Reef Guardian e. V."
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://mayalibit.com/#yayasan-kamtabai",
+      "name": "Yayasan Kamtabai Raja Ampat"
     }
   ]
 }
@@ -553,6 +594,7 @@
 
 <main class="map-wrap">
   <h1 class="sr-only" data-i18n-en="Explore Mayalibit Bay in Raja Ampat" data-i18n-id="Jelajahi Teluk Mayalibit di Raja Ampat">Explore Mayalibit Bay in Raja Ampat</h1>
+  <p class="sr-only" data-i18n-en="Discover ten communities around Mayalibit Bay on Waigeo Island, with local homestays, village culture, rainforest, mangroves, wildlife and water-based experiences." data-i18n-id="Temukan sepuluh komunitas di sekitar Teluk Mayalibit di Pulau Waigeo, dengan homestay lokal, budaya kampung, hutan hujan, mangrove, satwa liar, dan wisata air.">Discover ten communities around Mayalibit Bay on Waigeo Island, with local homestays, village culture, rainforest, mangroves, wildlife and water-based experiences.</p>
 
   <div id="leaflet-map"></div>
 
