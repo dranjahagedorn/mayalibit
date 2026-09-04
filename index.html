@@ -426,6 +426,51 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%; object-fit: cover;
   }
+  .photo-nav {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7px;
+    pointer-events: none;
+  }
+  .photo-nav button {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(20,35,45,.52);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background .15s, transform .15s;
+  }
+  .photo-nav button:hover,
+  .photo-nav button:focus-visible {
+    background: rgba(20,35,45,.78);
+    transform: scale(1.06);
+  }
+  .photo-nav button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+  .photo-count {
+    position: absolute;
+    right: 11px;
+    top: 9px;
+    z-index: 2;
+    padding: 3px 7px;
+    border-radius: 12px;
+    background: rgba(20,35,45,.52);
+    color: rgba(255,255,255,.92);
+    font-size: 9px;
+    letter-spacing: .05em;
+  }
   .photo-label {
     font-size: 11px;
     color: rgba(255,255,255,.45);
@@ -561,7 +606,9 @@ const villages = {
       { icon: "sailboat",   name: "Kayaking",       sub_en: "Kayaking", sub_id: "Berkayak" },
       { icon: "palette",    name: "Handcrafts",     sub_en: "Traditional handcrafts", sub_id: "Produk anyaman" },
     ],
-    photo: null
+    photo: "assets/images/go-sidebar.jpg",
+    photoAlt: "Traditional outrigger canoe beside the jetty in Go village, Mayalibit Bay",
+    photoPosition: "center 58%"
   },
   kabilol: {
     name: "Kabilol",
@@ -612,7 +659,18 @@ const villages = {
       { icon: "leaf",       name: "Mangroves",      sub_en: "Mangrove forest", sub_id: "Hutan mangrove" },
       { icon: "binoculars", name: "Bird-watching",  sub_en: "Bird-watching", sub_id: "Pengamatan burung" },
     ],
-    photo: null
+    photos: [
+      {
+        src: "assets/images/waifoi-1-sidebar.jpg",
+        alt: "Waifoi village beneath forested hills on the shore of Mayalibit Bay",
+        position: "center 75%"
+      },
+      {
+        src: "assets/images/waifoi-2-sidebar.jpg",
+        alt: "Forested mountain landscape beside Waifoi village in Mayalibit Bay",
+        position: "center 65%"
+      }
+    ]
   },
   warimak: {
     name: "Warimak",
@@ -693,10 +751,12 @@ const map = L.map('leaflet-map', {
   attributionControl: true,
 });
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+  minZoom: 10,
+  minNativeZoom: 11,
+  maxNativeZoom: 13,
   maxZoom: 18,
-  subdomains: 'abcd',
-  attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+  attribution: '© <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community',
 }).addTo(map);
 
 map.fitBounds([
@@ -712,10 +772,61 @@ const actList    = document.getElementById('act-list');
 const panelContact = document.getElementById('panel-contact');
 const panelPhoto = document.getElementById('panel-photo');
 const hint       = document.getElementById('hint');
+let activeVillage = null;
+let activePhotoIndex = 0;
+
+function getVillagePhotos(v) {
+  if (Array.isArray(v.photos)) return v.photos;
+  if (v.photo) {
+    return [{
+      src: v.photo,
+      alt: v.photoAlt || `${v.name} village in Mayalibit Bay, Raja Ampat`,
+      position: v.photoPosition,
+      credit: v.photoCredit,
+      source: v.photoSource
+    }];
+  }
+  return [];
+}
+
+function renderVillagePhoto() {
+  if (!activeVillage) return;
+
+  const photos = getVillagePhotos(activeVillage);
+  if (!photos.length) {
+    panelPhoto.innerHTML = `<span class="photo-label">Village photo</span>`;
+    return;
+  }
+
+  activePhotoIndex = (activePhotoIndex + photos.length) % photos.length;
+  const photo = photos[activePhotoIndex];
+  const credit = photo.credit && photo.source
+    ? `<a class="photo-credit" href="${photo.source}" target="_blank" rel="noopener">© ${photo.credit}</a>`
+    : '';
+  const navigation = photos.length > 1
+    ? `<div class="photo-nav">
+         <button type="button" data-photo-step="-1" aria-label="Previous photo"><i data-lucide="chevron-left" style="width:16px;height:16px"></i></button>
+         <button type="button" data-photo-step="1" aria-label="Next photo"><i data-lucide="chevron-right" style="width:16px;height:16px"></i></button>
+       </div>
+       <span class="photo-count">${activePhotoIndex + 1} / ${photos.length}</span>`
+    : '';
+
+  panelPhoto.innerHTML = `<img src="${photo.src}" alt="${photo.alt}" style="object-position:${photo.position || 'center'}" loading="lazy" decoding="async"><span class="photo-label">${activeVillage.name}</span>${credit}${navigation}`;
+  panelPhoto.querySelectorAll('[data-photo-step]').forEach(button => {
+    button.addEventListener('click', () => {
+      activePhotoIndex += Number(button.dataset.photoStep);
+      renderVillagePhoto();
+      lucide.createIcons();
+    });
+  });
+}
 
 function openVillage(id) {
   const v = villages[id];
   if (!v) return;
+
+  activeVillage = v;
+  activePhotoIndex = 0;
 
   panelName.textContent = v.name;
   const selectedLang = localStorage.getItem('lang') || 'en';
@@ -762,14 +873,7 @@ function openVillage(id) {
     </div>
   `).join('');
 
-  if (v.photo) {
-    const credit = v.photoCredit && v.photoSource
-      ? `<a class="photo-credit" href="${v.photoSource}" target="_blank" rel="noopener">© ${v.photoCredit}</a>`
-      : '';
-    panelPhoto.innerHTML = `<img src="${v.photo}" alt="${v.name} village in Mayalibit Bay, Raja Ampat" loading="lazy" decoding="async"><span class="photo-label">${v.name}</span>${credit}`;
-  } else {
-    panelPhoto.innerHTML = `<span class="photo-label">Village photo</span>`;
-  }
+  renderVillagePhoto();
 
   panel.classList.remove('hidden');
   hint.style.opacity = '0';
@@ -829,11 +933,11 @@ lucide.createIcons();
 // Kalibiru
 L.marker([-0.2988573, 130.9339812], { icon: L.divIcon({
   className: '',
-  html: '<div class="deko-marker" style="position:relative;display:flex;align-items:center;">' +
+  html: '<div class="deko-marker kalibiru-marker" style="position:relative;display:flex;align-items:center;">' +
         '<div class="deko-dot"></div>' +
-        '<div class="deko-label">Kalibiru</div></div>',
+        '<div class="deko-label" style="left:12px;top:12px;">Kalibiru</div></div>',
   iconSize: [8, 8], iconAnchor: [4, 4]
-}), interactive: false }).addTo(map);
+}), interactive: false, zIndexOffset: 1000 }).addTo(map);
 
 // Gunung Nok
 L.marker([-0.118500, 130.803500], { icon: L.divIcon({
