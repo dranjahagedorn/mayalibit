@@ -174,6 +174,14 @@
   .village-photo img {
     width: 100%; height: 100%; object-fit: cover; display: block;
   }
+  .village-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  @media (max-width: 600px) {
+    .village-gallery { grid-template-columns: 1fr; gap: 0; }
+  }
   .village-photo .photo-placeholder {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
@@ -220,6 +228,31 @@
     font-size: 11px; padding: 4px 11px; border-radius: 20px;
     background: rgba(26,46,60,.07); color: var(--text-muted);
   }
+  .contact-list {
+    margin: 0 0 24px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.34);
+  }
+  .contact-heading {
+    margin-bottom: 10px;
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: .5px solid var(--border);
+  }
+  .contact-card-name { color: var(--navy); font-size: 13px; font-weight: 500; }
+  .contact-card-links { display: flex; flex-wrap: wrap; gap: 7px; justify-content: flex-end; }
+  .contact-note { color: var(--text-muted); font-size: 11px; font-style: italic; }
   .village-actions { display: flex; gap: 8px; flex-wrap: wrap; }
   .action-btn {
     display: inline-flex; align-items: center; gap: 6px;
@@ -243,6 +276,8 @@
     header#site-header .nav-link:first-child { padding-left: 0; }
     header#site-header .nav-link.active::after { left: 10px; right: 10px; }
     header#site-header .nav-link:first-child.active::after { left: 0; }
+    .contact-card { align-items: flex-start; flex-direction: column; }
+    .contact-card-links { justify-content: flex-start; }
     .sidebar { display: none; }
     .content { padding: 32px 24px 60px; }
   }
@@ -278,9 +313,7 @@
       <div class="village-name">Go</div>
       <span class="village-tag" data-i18n-en="Northern Gateway" data-i18n-id="Gerbang Utara">Northern Gateway</span>
       <div class="village-photo">
-        <!-- Replace 'foto-go.jpg' with your filename once uploaded -->
-        <!-- <img src="foto-go.jpg" alt="Go"> -->
-        <div class="photo-placeholder">Go · Photo coming soon</div>
+        <img src="assets/images/go-sidebar.jpg" alt="Traditional outrigger canoe beside the jetty in Go village, Mayalibit Bay" style="object-position: center 58%" loading="lazy" decoding="async">
       </div>
       <div class="village-desc">
         <div data-lang="en">
@@ -298,6 +331,22 @@
         <span class="pill" data-i18n-en="Waterfall" data-i18n-id="Air terjun">Waterfall</span>
         <span class="pill" data-i18n-en="Kayaking" data-i18n-id="Berkayak">Kayaking</span>
         <span class="pill" data-i18n-en="Traditional handcrafts" data-i18n-id="Produk anyaman">Traditional handcrafts</span>
+      </div>
+      <div class="contact-list">
+        <div class="contact-heading" data-i18n-en="Local stays & contacts" data-i18n-id="Akomodasi & kontak lokal">Local stays & contacts</div>
+        <div class="contact-card">
+          <span class="contact-card-name">Makota Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://www.facebook.com/profile.php?id=61584508394027" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+            <a class="action-btn" href="https://wa.me/6285244247474" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Kaboroway Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://wa.me/6281240273708" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
       </div>
       <div class="village-actions">
         <a class="action-btn" href="index.html#go">
@@ -397,9 +446,13 @@
     <section class="village-section" id="waifoi">
       <div class="village-name">Waifoi</div>
       <span class="village-tag" data-i18n-en="Cultural Heart" data-i18n-id="Jantung Budaya">Cultural Heart</span>
-      <div class="village-photo">
-        <!-- <img src="foto-waifoi.jpg" alt="Waifoi"> -->
-        <div class="photo-placeholder">Waifoi · Photo coming soon</div>
+      <div class="village-gallery">
+        <div class="village-photo">
+          <img src="assets/images/waifoi-1-sidebar.jpg" alt="Waifoi village beneath forested hills on the shore of Mayalibit Bay" style="object-position: center 75%" loading="lazy" decoding="async">
+        </div>
+        <div class="village-photo">
+          <img src="assets/images/waifoi-2-sidebar.jpg" alt="Forested mountain landscape beside Waifoi village in Mayalibit Bay" style="object-position: center 65%" loading="lazy" decoding="async">
+        </div>
       </div>
       <div class="village-desc">
         <div data-lang="en">
@@ -419,13 +472,41 @@
         <span class="pill" data-i18n-en="Mangrove forest" data-i18n-id="Hutan mangrove">Mangrove forest</span>
         <span class="pill" data-i18n-en="Bird-watching" data-i18n-id="Pengamatan burung">Bird-watching</span>
       </div>
+      <div class="contact-list">
+        <div class="contact-heading" data-i18n-en="Local stays & contacts" data-i18n-id="Akomodasi & kontak lokal">Local stays & contacts</div>
+        <div class="contact-card">
+          <span class="contact-card-name">Saupon Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+            <a class="action-btn" href="https://wa.me/6282198355771" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Saumen Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://www.facebook.com/saumenwaifoi" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+            <a class="action-btn" href="https://wa.me/6282113794903" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Kamtabai Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://www.facebook.com/p/Kamtabai-Forest-Hut-61559845095782/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+            <a class="action-btn" href="https://wa.me/6281288863768" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Febrianto Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://maps.app.goo.gl/U78p4xqmaJm9F9pTA" target="_blank" rel="noopener"><i data-lucide="map-pin" style="width:13px;height:13px"></i><span data-i18n-en="Location" data-i18n-id="Lokasi">Location</span></a>
+            <a class="action-btn" href="https://wa.me/6281359810139" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+      </div>
       <div class="village-actions">
         <a class="action-btn" href="index.html#waifoi">
           <i data-lucide="map-pin" style="width:13px;height:13px"></i>
           <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
-        </a>
-        <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/" target="_blank" rel="noopener">
-          <i data-lucide="external-link" style="width:13px;height:13px"></i> Saupon Homestay
         </a>
       </div>
     </section>
@@ -453,13 +534,20 @@
         <span class="pill" data-i18n-en="Wildlife spotting" data-i18n-id="Pengamatan satwa liar">Wildlife spotting</span>
         <span class="pill" data-i18n-en="Cave" data-i18n-id="Gua">Cave</span>
       </div>
+      <div class="contact-list">
+        <div class="contact-heading" data-i18n-en="Local stays & contacts" data-i18n-id="Akomodasi & kontak lokal">Local stays & contacts</div>
+        <div class="contact-card">
+          <span class="contact-card-name">Laensorongga Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://maps.app.goo.gl/bXheh3oXwJmD9bFKA" target="_blank" rel="noopener"><i data-lucide="map-pin" style="width:13px;height:13px"></i><span data-i18n-en="Location" data-i18n-id="Lokasi">Location</span></a>
+            <a class="action-btn" href="https://wa.me/6281240125590" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+      </div>
       <div class="village-actions">
         <a class="action-btn" href="index.html#warimak">
           <i data-lucide="map-pin" style="width:13px;height:13px"></i>
           <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
-        </a>
-        <a class="action-btn" href="https://maps.app.goo.gl/bXheh3oXwJmD9bFKA" target="_blank" rel="noopener">
-          <i data-lucide="external-link" style="width:13px;height:13px"></i> Laensorongga Homestay
         </a>
       </div>
     </section>
@@ -488,13 +576,19 @@
         <span class="pill" data-i18n-en="Trekking" data-i18n-id="Trekking">Trekking</span>
         <span class="pill" data-i18n-en="Wildlife spotting" data-i18n-id="Pengamatan satwa liar">Wildlife spotting</span>
       </div>
+      <div class="contact-list">
+        <div class="contact-heading" data-i18n-en="Local stays & contacts" data-i18n-id="Akomodasi & kontak lokal">Local stays & contacts</div>
+        <div class="contact-card">
+          <span class="contact-card-name">Labuta Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://www.instagram.com/labutahomstey/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+          </div>
+        </div>
+      </div>
       <div class="village-actions">
         <a class="action-btn" href="index.html#kalitoko">
           <i data-lucide="map-pin" style="width:13px;height:13px"></i>
           <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
-        </a>
-        <a class="action-btn" href="https://www.instagram.com/labutahomstey/" target="_blank" rel="noopener">
-          <i data-lucide="external-link" style="width:13px;height:13px"></i> Labuta Homestay
         </a>
       </div>
     </section>
@@ -520,6 +614,40 @@
         <span class="pill" data-i18n-en="Swimming" data-i18n-id="Berenang">Swimming</span>
         <span class="pill" data-i18n-en="Traditional welcome dance" data-i18n-id="Tarian penyambutan tradisional">Traditional welcome dance</span>
         <span class="pill" data-i18n-en="Mangrove forest" data-i18n-id="Hutan mangrove">Mangrove forest</span>
+      </div>
+      <div class="contact-list">
+        <div class="contact-heading" data-i18n-en="Local stays & contacts" data-i18n-id="Akomodasi & kontak lokal">Local stays & contacts</div>
+        <div class="contact-card">
+          <span class="contact-card-name">Mannyailov</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://maps.app.goo.gl/PPzKiUsZDVnEo1KE7" target="_blank" rel="noopener"><i data-lucide="map-pin" style="width:13px;height:13px"></i><span data-i18n-en="Location" data-i18n-id="Lokasi">Location</span></a>
+            <a class="action-btn" href="https://wa.me/62822517004" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Kali Biru</span>
+          <span class="contact-note" data-i18n-en="No direct contact available" data-i18n-id="Belum ada kontak langsung">No direct contact available</span>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Jeti Mangrove</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://kalibiru-rajaampat.com/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+            <a class="action-btn" href="https://wa.me/6285354179361" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Wemalou</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://wa.me/6281262185970" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">W Love Jetty</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://maps.app.goo.gl/VE7mfm6jvthXthHw6" target="_blank" rel="noopener"><i data-lucide="map-pin" style="width:13px;height:13px"></i><span data-i18n-en="Location" data-i18n-id="Lokasi">Location</span></a>
+            <a class="action-btn" href="https://wa.me/6282198358967" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
       </div>
       <div class="village-actions">
         <a class="action-btn" href="index.html#warsambin">
@@ -581,13 +709,33 @@
         <span class="pill" data-i18n-en="Fishing" data-i18n-id="Memancing">Fishing</span>
         <span class="pill" data-i18n-en="Trekking" data-i18n-id="Trekking">Trekking</span>
       </div>
+      <div class="contact-list">
+        <div class="contact-heading" data-i18n-en="Local stays & contacts" data-i18n-id="Akomodasi & kontak lokal">Local stays & contacts</div>
+        <div class="contact-card">
+          <span class="contact-card-name">Kurawesi Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/kurawesi-homestay/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:13px;height:13px"></i><span data-i18n-en="Details" data-i18n-id="Detail">Details</span></a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Alvano Homestay</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://maps.app.goo.gl/xd88UACHgmoabCF97" target="_blank" rel="noopener"><i data-lucide="map-pin" style="width:13px;height:13px"></i><span data-i18n-en="Location" data-i18n-id="Lokasi">Location</span></a>
+            <a class="action-btn" href="https://wa.me/6282396580735" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card-name">Lainkalogos Glamping</span>
+          <div class="contact-card-links">
+            <a class="action-btn" href="https://maps.app.goo.gl/JmKrgeNnCu9wiiWZ9" target="_blank" rel="noopener"><i data-lucide="map-pin" style="width:13px;height:13px"></i><span data-i18n-en="Location" data-i18n-id="Lokasi">Location</span></a>
+            <a class="action-btn" href="https://wa.me/6285173445445" target="_blank" rel="noopener"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>
+          </div>
+        </div>
+      </div>
       <div class="village-actions">
         <a class="action-btn" href="index.html#mumes">
           <i data-lucide="map-pin" style="width:13px;height:13px"></i>
           <span data-i18n-en="View on map" data-i18n-id="Lihat di peta">View on map</span>
-        </a>
-        <a class="action-btn" href="https://www.stayrajaampat.com/accommodation/kurawesi-homestay/" target="_blank" rel="noopener">
-          <i data-lucide="external-link" style="width:13px;height:13px"></i> Kurawesi Homestay
         </a>
       </div>
     </section>

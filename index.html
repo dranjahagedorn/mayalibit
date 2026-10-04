@@ -412,6 +412,30 @@
   .panel-contact {
     margin-bottom: 16px;
   }
+  .contact-title {
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .contact-entry {
+    padding: 9px 0 3px;
+    border-top: 0.5px solid rgba(26,46,60,.07);
+  }
+  .contact-name {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .contact-unavailable {
+    color: var(--text-sub);
+    font-size: 11px;
+    font-style: italic;
+  }
   .contact-btn {
     display: inline-flex;
     align-items: center;
@@ -474,51 +498,6 @@
   .panel-photo img {
     position: absolute; inset: 0;
     width: 100%; height: 100%; object-fit: cover;
-  }
-  .photo-nav {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 7px;
-    pointer-events: none;
-  }
-  .photo-nav button {
-    width: 28px;
-    height: 28px;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(20,35,45,.52);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    pointer-events: auto;
-    transition: background .15s, transform .15s;
-  }
-  .photo-nav button:hover,
-  .photo-nav button:focus-visible {
-    background: rgba(20,35,45,.78);
-    transform: scale(1.06);
-  }
-  .photo-nav button:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 2px;
-  }
-  .photo-count {
-    position: absolute;
-    right: 11px;
-    top: 9px;
-    z-index: 2;
-    padding: 3px 7px;
-    border-radius: 12px;
-    background: rgba(20,35,45,.52);
-    color: rgba(255,255,255,.92);
-    font-size: 9px;
-    letter-spacing: .05em;
   }
   .photo-label {
     font-size: 11px;
@@ -621,12 +600,12 @@
       <div class="gold-bar"></div>
       <div class="panel-desc" id="panel-desc"></div>
       <div class="panel-contact" id="panel-contact"></div>
-      <div style="margin-top: 6px;">
+      <div class="act-list" id="act-list"></div>
+      <div style="margin-top: 16px;">
         <a id="panel-more-btn" class="contact-btn" href="#" style="display:none;">
           <i data-lucide="arrow-right" style="width:13px;height:13px"></i>More info
         </a>
       </div>
-      <div class="act-list" id="act-list"></div>
     </div>
     <div class="panel-photo" id="panel-photo">
       <span class="photo-label">Village photo</span>
@@ -658,7 +637,11 @@ const villages = {
     ],
     photo: "assets/images/go-sidebar.jpg",
     photoAlt: "Traditional outrigger canoe beside the jetty in Go village, Mayalibit Bay",
-    photoPosition: "center 58%"
+    photoPosition: "center 58%",
+    contacts: [
+      { label: "Makota Homestay", url: "https://www.facebook.com/profile.php?id=61584508394027", phone: "+6285244247474" },
+      { label: "Kaboroway Homestay", phone: "+6281240273708" }
+    ]
   },
   kabilol: {
     name: "Kabilol",
@@ -720,6 +703,12 @@ const villages = {
         alt: "Forested mountain landscape beside Waifoi village in Mayalibit Bay",
         position: "center 65%"
       }
+    ],
+    contacts: [
+      { label: "Saupon Homestay", url: "https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/", phone: "+6282198355771" },
+      { label: "Saumen Homestay", url: "https://www.facebook.com/saumenwaifoi", phone: "+6282113794903" },
+      { label: "Kamtabai Homestay", url: "https://www.facebook.com/p/Kamtabai-Forest-Hut-61559845095782/", phone: "+6281288863768" },
+      { label: "Febrianto Homestay", url: "https://maps.app.goo.gl/U78p4xqmaJm9F9pTA", phone: "+6281359810139" }
     ]
   },
   warimak: {
@@ -736,7 +725,9 @@ const villages = {
     photo: "assets/images/warimak-laura-arnold.jpg",
     photoCredit: "Laura Arnold",
     photoSource: "https://laura-arnold.org/images/AmbelPics/13-Warimak.jpg",
-    contact: { label: "Laensorongga Homestay", url: "https://maps.app.goo.gl/bXheh3oXwJmD9bFKA", phone: null }
+    contacts: [
+      { label: "Laensorongga Homestay", url: "https://maps.app.goo.gl/bXheh3oXwJmD9bFKA", phone: "+6281240125590" }
+    ]
   },
   kalitoko: {
     name: "Kalitoko",
@@ -753,7 +744,9 @@ const villages = {
     photo: "assets/images/kalitoko-raja-ampat-archaeological-project.jpg",
     photoCredit: "Raja Ampat Archaeological Project",
     photoSource: "https://www.raja-ampat-arch.com/?pgid=jyeeygls-efed0c9f-ed17-4540-a5d4-1973ca96da67",
-    contact: { label: "Labuta Homestay", url: "https://www.instagram.com/labutahomstey/", phone: null }
+    contacts: [
+      { label: "Labuta Homestay", url: "https://www.instagram.com/labutahomstey/" }
+    ]
   },
   warsambin: {
     name: "Warsambin",
@@ -765,7 +758,14 @@ const villages = {
       { icon: "music",      name: "Welcome Dance", sub_en: "Traditional welcome dance", sub_id: "Tarian penyambutan tradisional" },
       { icon: "leaf",       name: "Mangroves",     sub_en: "Mangrove forest", sub_id: "Hutan mangrove" },
     ],
-    photo: null
+    photo: null,
+    contacts: [
+      { label: "Mannyailov", url: "https://maps.app.goo.gl/PPzKiUsZDVnEo1KE7", phone: "+62822517004" },
+      { label: "Kali Biru", unavailable: true },
+      { label: "Jeti Mangrove", url: "https://kalibiru-rajaampat.com/", phone: "+6285354179361" },
+      { label: "Wemalou", phone: "+6281262185970" },
+      { label: "W Love Jetty", url: "https://maps.app.goo.gl/VE7mfm6jvthXthHw6", phone: "+6282198358967" }
+    ]
   },
   lopintol: {
     name: "Lopintol",
@@ -790,7 +790,12 @@ const villages = {
       { icon: "fish",       name: "Fishing",        sub_en: "Fishing", sub_id: "Memancing" },
       { icon: "footprints", name: "Trekking",       sub_en: "Trekking", sub_id: "Trekking" },
     ],
-    photo: null
+    photo: null,
+    contacts: [
+      { label: "Kurawesi Homestay", url: "https://www.stayrajaampat.com/accommodation/kurawesi-homestay/" },
+      { label: "Alvano Homestay", url: "https://maps.app.goo.gl/xd88UACHgmoabCF97", phone: "+6282396580735" },
+      { label: "Lainkalogos Glamping", url: "https://maps.app.goo.gl/JmKrgeNnCu9wiiWZ9", phone: "+6285173445445" }
+    ]
   },
 };
 
@@ -823,7 +828,6 @@ const panelContact = document.getElementById('panel-contact');
 const panelPhoto = document.getElementById('panel-photo');
 const hint       = document.getElementById('hint');
 let activeVillage = null;
-let activePhotoIndex = 0;
 
 function getVillagePhotos(v) {
   if (Array.isArray(v.photos)) return v.photos;
@@ -848,27 +852,11 @@ function renderVillagePhoto() {
     return;
   }
 
-  activePhotoIndex = (activePhotoIndex + photos.length) % photos.length;
-  const photo = photos[activePhotoIndex];
+  const photo = photos[0];
   const credit = photo.credit && photo.source
     ? `<a class="photo-credit" href="${photo.source}" target="_blank" rel="noopener">© ${photo.credit}</a>`
     : '';
-  const navigation = photos.length > 1
-    ? `<div class="photo-nav">
-         <button type="button" data-photo-step="-1" aria-label="Previous photo"><i data-lucide="chevron-left" style="width:16px;height:16px"></i></button>
-         <button type="button" data-photo-step="1" aria-label="Next photo"><i data-lucide="chevron-right" style="width:16px;height:16px"></i></button>
-       </div>
-       <span class="photo-count">${activePhotoIndex + 1} / ${photos.length}</span>`
-    : '';
-
-  panelPhoto.innerHTML = `<img src="${photo.src}" alt="${photo.alt}" style="object-position:${photo.position || 'center'}" loading="lazy" decoding="async"><span class="photo-label">${activeVillage.name}</span>${credit}${navigation}`;
-  panelPhoto.querySelectorAll('[data-photo-step]').forEach(button => {
-    button.addEventListener('click', () => {
-      activePhotoIndex += Number(button.dataset.photoStep);
-      renderVillagePhoto();
-      lucide.createIcons();
-    });
-  });
+  panelPhoto.innerHTML = `<img src="${photo.src}" alt="${photo.alt}" style="object-position:${photo.position || 'center'}" loading="lazy" decoding="async"><span class="photo-label">${activeVillage.name}</span>${credit}`;
 }
 
 function openVillage(id) {
@@ -876,25 +864,25 @@ function openVillage(id) {
   if (!v) return;
 
   activeVillage = v;
-  activePhotoIndex = 0;
 
   panelName.textContent = v.name;
   const selectedLang = localStorage.getItem('lang') || 'en';
   panelDesc.textContent = selectedLang === 'id' ? v.desc_id : v.desc_en;
 
-  if (v.contact) {
-    let html = '';
-    if (v.contact.url) {
-      html += `<a class="contact-btn" href="${v.contact.url}" target="_blank" rel="noopener">
-        <i data-lucide="external-link" style="width:13px;height:13px"></i>${v.contact.label}
-      </a>`;
-    }
-    if (v.contact.phone) {
-      html += `<a class="contact-btn" href="https://wa.me/${v.contact.phone.replace(/\D/g,'')}" target="_blank" rel="noopener">
-        <i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp
-      </a>`;
-    }
-    panelContact.innerHTML = html;
+  if (v.contacts?.length === 1) {
+    const contactTitle = selectedLang === 'id' ? 'Akomodasi & kontak' : 'Stays & contacts';
+    const detailsLabel = selectedLang === 'id' ? 'Detail' : 'Details';
+    const unavailableLabel = selectedLang === 'id' ? 'Belum ada kontak langsung' : 'No direct contact available';
+    panelContact.innerHTML = `<div class="contact-title">${contactTitle}</div>` + v.contacts.map(contact => {
+      const details = contact.url
+        ? `<a class="contact-btn" href="${contact.url}" target="_blank" rel="noopener" aria-label="${detailsLabel}: ${contact.label}"><i data-lucide="external-link" style="width:13px;height:13px"></i>${detailsLabel}</a>`
+        : '';
+      const whatsapp = contact.phone
+        ? `<a class="contact-btn" href="https://wa.me/${contact.phone.replace(/\D/g,'')}" target="_blank" rel="noopener" aria-label="WhatsApp: ${contact.label}"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>`
+        : '';
+      const unavailable = contact.unavailable ? `<span class="contact-unavailable">${unavailableLabel}</span>` : '';
+      return `<div class="contact-entry"><span class="contact-name">${contact.label}</span>${details}${whatsapp}${unavailable}</div>`;
+    }).join('');
     panelContact.style.display = 'block';
   } else {
     panelContact.innerHTML = '';
