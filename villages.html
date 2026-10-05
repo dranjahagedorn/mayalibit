@@ -169,9 +169,9 @@
     display: inline-block;
     max-width: 760px;
     margin: -20px 0 64px;
-    padding: 11px 16px;
+    padding: 5px 0 5px 16px;
     border-left: 2px solid var(--gold);
-    background: rgba(255,255,255,.38);
+    background: transparent;
     color: var(--text-muted);
     font-size: 12px;
     line-height: 1.65;
@@ -180,44 +180,29 @@
 
   /* Village section */
   .village-section {
+    counter-increment: village;
     display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(300px, .88fr);
-    grid-template-areas:
-      "media name"
-      "media tag"
-      "media desc"
-      "media activities"
-      "contacts contacts"
-      "map map";
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-rows: auto auto 1fr auto auto auto;
-    gap: 0 42px;
-    margin-bottom: 56px;
-    padding: 28px;
-    overflow: hidden;
+    column-gap: 28px;
+    margin-bottom: 104px;
+    padding-top: 52px;
     scroll-margin-top: 80px;
-    border: 1px solid rgba(26,46,60,.08);
-    border-radius: 24px;
-    background: rgba(255,255,255,.46);
-    box-shadow: 0 24px 60px rgba(26,46,60,.055);
+    border-top: 1px solid rgba(26,46,60,.12);
   }
+  .content { counter-reset: village; }
   .village-section:nth-of-type(even) {
-    grid-template-columns: minmax(300px, .88fr) minmax(0, 1.12fr);
-    grid-template-areas:
-      "name media"
-      "tag media"
-      "desc media"
-      "activities media"
-      "contacts contacts"
-      "map map";
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   /* Village photo */
   .village-photo {
-    grid-area: media;
+    grid-column: 1 / span 7;
+    grid-row: 1 / span 4;
     width: 100%;
     height: 100%;
-    min-height: 420px;
-    border-radius: 17px;
+    min-height: 460px;
+    border-radius: 2px;
     overflow: hidden;
     margin: 0;
     background:
@@ -227,19 +212,22 @@
   }
   .village-photo img {
     width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform .55s ease;
   }
-  .village-section:hover .village-photo img { transform: scale(1.018); }
   .village-gallery {
-    grid-area: media;
+    grid-column: 1 / span 7;
+    grid-row: 1 / span 4;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    min-height: 420px;
+    gap: 6px;
+    min-height: 460px;
   }
   .village-gallery .village-photo {
     min-height: 0;
+  }
+  .village-section:nth-of-type(even) > .village-photo,
+  .village-section:nth-of-type(even) > .village-gallery {
+    grid-column: 6 / -1;
   }
   .village-photo .photo-placeholder {
     position: absolute; inset: 0;
@@ -264,17 +252,29 @@
   .village-photo .photo-credit:hover { background: rgba(10,24,32,.75); }
 
   .village-name {
-    grid-area: name;
-    align-self: end;
+    grid-column: 8 / -1;
+    grid-row: 1;
+    align-self: start;
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2.45rem, 4vw, 3.35rem);
     font-weight: 600;
     line-height: 1;
     letter-spacing: -.015em;
-    margin: 12px 0 10px;
+    margin: 0 0 10px;
+  }
+  .village-name::before {
+    content: counter(village, decimal-leading-zero);
+    display: block;
+    margin-bottom: 26px;
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .12em;
   }
   .village-tag {
-    grid-area: tag;
+    grid-column: 8 / -1;
+    grid-row: 2;
     justify-self: start;
     display: inline-block;
     font-size: 10px;
@@ -282,15 +282,16 @@
     letter-spacing: .09em;
     text-transform: uppercase;
     color: var(--gold);
-    border: .5px solid rgba(184,145,90,.68);
-    border-radius: 20px;
-    padding: 5px 11px;
-    margin-bottom: 24px;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 26px;
   }
 
   /* Description — lang switching */
   .village-desc {
-    grid-area: desc;
+    grid-column: 8 / -1;
+    grid-row: 3;
     align-self: start;
     font-size: 14.5px;
     color: var(--text-muted);
@@ -302,66 +303,65 @@
   .village-desc [data-lang="en"] { display: block; }
 
   .activity-pills {
-    grid-area: activities;
+    grid-column: 8 / -1;
+    grid-row: 4;
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
+    gap: 6px 0;
     align-self: end;
-    margin-bottom: 8px;
+    margin-bottom: 0;
   }
   .pill {
-    font-size: 11px;
-    padding: 5px 11px;
-    border: 1px solid rgba(26,46,60,.06);
-    border-radius: 20px;
-    background: rgba(26,46,60,.055);
+    display: inline-flex;
+    align-items: center;
+    font-size: 11.5px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     color: var(--text-muted);
   }
+  .pill:not(:last-child)::after {
+    content: '·';
+    margin: 0 9px;
+    color: var(--gold);
+  }
+  .village-section:nth-of-type(even) > .village-name,
+  .village-section:nth-of-type(even) > .village-tag,
+  .village-section:nth-of-type(even) > .village-desc,
+  .village-section:nth-of-type(even) > .activity-pills {
+    grid-column: 1 / span 5;
+  }
   .contact-list {
-    grid-area: contacts;
+    grid-column: 1 / -1;
+    grid-row: 5;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin: 28px 0 18px;
-    padding: 26px 0 0;
-    border-top: 1px solid rgba(26,46,60,.09);
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0 28px;
+    margin: 42px 0 18px;
+    padding: 0;
   }
   .contact-heading {
     grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0 2px;
-    margin-bottom: 6px;
-    color: var(--navy);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 21px;
-    font-weight: 600;
-    letter-spacing: 0;
-  }
-  .contact-heading::before {
-    content: '';
-    width: 24px;
-    height: 1.5px;
-    flex: 0 0 auto;
-    background: var(--gold);
+    padding: 0;
+    margin-bottom: 10px;
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .11em;
+    text-transform: uppercase;
   }
   .contact-card {
     display: flex;
-    min-height: 112px;
-    padding: 16px;
+    min-height: 86px;
+    padding: 14px 0 16px;
     flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid rgba(26,46,60,.075);
-    border-radius: 14px;
-    background: rgba(255,255,255,.58);
-    box-shadow: 0 8px 20px rgba(26,46,60,.025);
-    transition: transform .2s ease, border-color .2s ease, background .2s ease;
-  }
-  .contact-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(184,145,90,.38);
-    background: rgba(255,255,255,.82);
+    justify-content: flex-start;
+    border-top: 1px solid rgba(26,46,60,.12);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
   .contact-card-name {
     color: var(--navy);
@@ -373,27 +373,28 @@
   .contact-card-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 18px;
+    gap: 6px 16px;
+    margin-top: 12px;
   }
   .contact-card-links .action-btn {
     width: fit-content;
-    padding: 6px 10px;
-    border: 1px solid rgba(26,46,60,.13);
-    border-radius: 20px;
-    background: rgba(237,234,227,.58);
+    padding: 3px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(26,46,60,.22);
+    border-radius: 0;
+    background: transparent;
     color: rgba(26,46,60,.68);
-    font-size: 10.5px;
+    font-size: 11px;
   }
   .contact-card-links .action-btn[href^="https://wa.me"] {
-    border-color: var(--navy);
-    background: var(--navy);
-    color: var(--bg);
+    border-color: rgba(26,46,60,.34);
+    background: transparent;
+    color: var(--navy);
   }
   .contact-card-links .action-btn:hover {
-    border-color: var(--gold);
-    background: var(--gold);
-    color: #fff;
+    border-color: var(--navy);
+    background: transparent;
+    color: var(--navy);
   }
   .contact-note {
     display: block;
@@ -407,7 +408,8 @@
     text-align: left;
   }
   .village-actions {
-    grid-area: map;
+    grid-column: 1 / -1;
+    grid-row: 6;
     display: flex;
     gap: 18px;
     flex-wrap: wrap;
@@ -434,18 +436,26 @@
     .village-section,
     .village-section:nth-of-type(even) {
       grid-template-columns: 1fr;
-      grid-template-areas:
-        "name"
-        "tag"
-        "media"
-        "desc"
-        "activities"
-        "contacts"
-        "map";
       grid-template-rows: auto;
-      gap: 0;
+      margin-bottom: 76px;
+      padding-top: 42px;
     }
-    .village-name { margin-top: 4px; }
+    .village-section > .village-name,
+    .village-section:nth-of-type(even) > .village-name { grid-column: 1; grid-row: 1; }
+    .village-section > .village-tag,
+    .village-section:nth-of-type(even) > .village-tag { grid-column: 1; grid-row: 2; }
+    .village-section > .village-photo,
+    .village-section:nth-of-type(even) > .village-photo,
+    .village-section > .village-gallery,
+    .village-section:nth-of-type(even) > .village-gallery { grid-column: 1; grid-row: 3; }
+    .village-section > .village-desc,
+    .village-section:nth-of-type(even) > .village-desc { grid-column: 1; grid-row: 4; }
+    .village-section > .activity-pills,
+    .village-section:nth-of-type(even) > .activity-pills { grid-column: 1; grid-row: 5; }
+    .village-section > .contact-list { grid-column: 1; grid-row: 6; }
+    .village-section > .village-actions { grid-column: 1; grid-row: 7; }
+    .village-name { margin-top: 0; }
+    .village-name::before { margin-bottom: 18px; }
     .village-photo { height: 330px; min-height: 330px; margin-bottom: 26px; }
     .village-gallery {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -470,20 +480,20 @@
     .page-title { font-size: 3.5rem; }
     .page-intro { font-size: 15.5px; margin-bottom: 40px; }
     .availability-note { margin-bottom: 46px; }
-    .village-section { padding: 18px; border-radius: 18px; margin-bottom: 30px; }
+    .village-section { margin-bottom: 64px; padding-top: 34px; }
     .village-name { font-size: 2.65rem; }
-    .village-photo { height: 250px; min-height: 250px; border-radius: 13px; }
+    .village-photo { height: 250px; min-height: 250px; border-radius: 2px; }
     .village-gallery { min-height: 250px; }
     .village-gallery .village-photo { height: 250px; min-height: 250px; }
     .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .contact-card { min-height: 108px; }
+    .contact-card { min-height: 82px; }
   }
 
   @media (max-width: 540px) {
     .village-gallery { grid-template-columns: 1fr; grid-template-rows: repeat(2, 190px); }
     .village-gallery .village-photo { height: 190px; min-height: 190px; }
     .contact-list { grid-template-columns: 1fr; }
-    .contact-card { min-height: 104px; }
+    .contact-card { min-height: 78px; }
     .village-actions { justify-content: flex-start; }
   }
 </style>
