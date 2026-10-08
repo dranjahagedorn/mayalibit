@@ -1,12 +1,11 @@
 // ── Shared header ─────────────────────────────────────────────────────
 // Include via <script src="header.js"></script> before </body>
-// Set active page via <body data-page="explore|villages|activities|about|conservation">
+// Set active page via <body data-page="explore|villages|about|conservation">
 
 (function () {
   const pages = [
     { id: 'explore',      href: 'index.html',        en: 'Explore',      id_: 'Jelajahi' },
     { id: 'villages',     href: 'villages.html',     en: 'Villages',     id_: 'Desa'     },
-    { id: 'activities',   href: 'activities.html',   en: 'Activities',   id_: 'Aktivitas'},
     { id: 'about',        href: 'about.html',        en: 'About',        id_: 'Tentang'  },
     { id: 'conservation', href: 'conservation.html', en: 'Conservation', id_: 'Konservasi'},
   ];
