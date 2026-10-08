@@ -758,7 +758,9 @@ const villages = {
       { icon: "music",      name: "Welcome Dance", sub_en: "Traditional welcome dance", sub_id: "Tarian penyambutan tradisional" },
       { icon: "leaf",       name: "Mangroves",     sub_en: "Mangrove forest", sub_id: "Hutan mangrove" },
     ],
-    photo: null,
+    photo: "assets/images/warsambin-welove-homestay.jpg",
+    photoAlt: "Aerial view of Warsambin village on the coast of Mayalibit Bay",
+    photoCredit: "WELOVE HOMESTAY",
     contacts: [
       { label: "Mannyailov", url: "https://maps.app.goo.gl/PPzKiUsZDVnEo1KE7", phone: "+62822517004" },
       { label: "Kali Biru", unavailable: true },
@@ -853,8 +855,10 @@ function renderVillagePhoto() {
   }
 
   const photo = photos[0];
-  const credit = photo.credit && photo.source
-    ? `<a class="photo-credit" href="${photo.source}" target="_blank" rel="noopener">© ${photo.credit}</a>`
+  const credit = photo.credit
+    ? photo.source
+      ? `<a class="photo-credit" href="${photo.source}" target="_blank" rel="noopener">© ${photo.credit}</a>`
+      : `<span class="photo-credit">© ${photo.credit}</span>`
     : '';
   panelPhoto.innerHTML = `<img src="${photo.src}" alt="${photo.alt}" style="object-position:${photo.position || 'center'}" loading="lazy" decoding="async"><span class="photo-label">${activeVillage.name}</span>${credit}`;
 }
