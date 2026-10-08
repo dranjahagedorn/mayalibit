@@ -706,9 +706,9 @@ const villages = {
     ],
     contacts: [
       { label: "Saupon Homestay", url: "https://www.stayrajaampat.com/accommodation/saupon-mangrove-homestay/", phone: "+6282198355771" },
-      { label: "Saumen Homestay", url: "https://www.facebook.com/saumenwaifoi", phone: "+6282113794903" },
+      { label: "Saumen Homestay", url: "https://www.facebook.com/saumenwaifoi", phone: "+6282113794903", phoneOnly: true },
       { label: "Kamtabai Homestay", url: "https://www.facebook.com/p/Kamtabai-Forest-Hut-61559845095782/", phone: "+6281288863768" },
-      { label: "Febrianto Homestay", url: "https://maps.app.goo.gl/U78p4xqmaJm9F9pTA", phone: "+6281359810139" }
+      { label: "Febrianto Homestay", url: "https://maps.app.goo.gl/U78p4xqmaJm9F9pTA", phone: "+6281359810139", phoneOnly: true }
     ]
   },
   warimak: {
@@ -726,7 +726,7 @@ const villages = {
     photoCredit: "Laura Arnold",
     photoSource: "https://laura-arnold.org/images/AmbelPics/13-Warimak.jpg",
     contacts: [
-      { label: "Laensorongga Homestay", url: "https://maps.app.goo.gl/bXheh3oXwJmD9bFKA", phone: "+6281240125590" }
+      { label: "Laensorongga Homestay", url: "https://maps.app.goo.gl/bXheh3oXwJmD9bFKA", phone: "+6281240125590", phoneOnly: true }
     ]
   },
   kalitoko: {
@@ -762,8 +762,7 @@ const villages = {
     photoAlt: "Aerial view of Warsambin village on the coast of Mayalibit Bay",
     photoCredit: "WELOVE HOMESTAY",
     contacts: [
-      { label: "Mannyailov", url: "https://maps.app.goo.gl/PPzKiUsZDVnEo1KE7", phone: "+62822517004" },
-      { label: "Kali Biru", unavailable: true },
+      { label: "Manyallow Homestay", url: "https://maps.app.goo.gl/PPzKiUsZDVnEo1KE7", phone: "+62822517004", phoneOnly: true },
       { label: "Jeti Mangrove", url: "https://kalibiru-rajaampat.com/", phone: "+6285354179361" },
       { label: "Wemalou", phone: "+6281262185970" },
       { label: "W Love Jetty", url: "https://maps.app.goo.gl/VE7mfm6jvthXthHw6", phone: "+6282198358967" }
@@ -876,16 +875,19 @@ function openVillage(id) {
   if (v.contacts?.length === 1) {
     const contactTitle = selectedLang === 'id' ? 'Akomodasi & kontak' : 'Stays & contacts';
     const detailsLabel = selectedLang === 'id' ? 'Detail' : 'Details';
+    const phoneLabel = selectedLang === 'id' ? 'Telepon' : 'Phone';
     const unavailableLabel = selectedLang === 'id' ? 'Belum ada kontak langsung' : 'No direct contact available';
     panelContact.innerHTML = `<div class="contact-title">${contactTitle}</div>` + v.contacts.map(contact => {
       const details = contact.url
         ? `<a class="contact-btn" href="${contact.url}" target="_blank" rel="noopener" aria-label="${detailsLabel}: ${contact.label}"><i data-lucide="external-link" style="width:13px;height:13px"></i>${detailsLabel}</a>`
         : '';
-      const whatsapp = contact.phone
-        ? `<a class="contact-btn" href="https://wa.me/${contact.phone.replace(/\D/g,'')}" target="_blank" rel="noopener" aria-label="WhatsApp: ${contact.label}"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>`
+      const phone = contact.phone
+        ? contact.phoneOnly
+          ? `<a class="contact-btn" href="tel:${contact.phone}" aria-label="${phoneLabel}: ${contact.label}"><i data-lucide="phone" style="width:13px;height:13px"></i>${phoneLabel}</a>`
+          : `<a class="contact-btn" href="https://wa.me/${contact.phone.replace(/\D/g,'')}" target="_blank" rel="noopener" aria-label="WhatsApp: ${contact.label}"><i data-lucide="message-circle" style="width:13px;height:13px"></i>WhatsApp</a>`
         : '';
       const unavailable = contact.unavailable ? `<span class="contact-unavailable">${unavailableLabel}</span>` : '';
-      return `<div class="contact-entry"><span class="contact-name">${contact.label}</span>${details}${whatsapp}${unavailable}</div>`;
+      return `<div class="contact-entry"><span class="contact-name">${contact.label}</span>${details}${phone}${unavailable}</div>`;
     }).join('');
     panelContact.style.display = 'block';
   } else {
