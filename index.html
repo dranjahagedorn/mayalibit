@@ -222,71 +222,6 @@
     height: 100%;
   }
 
-  .map-consent {
-    position: absolute;
-    inset: 0;
-    z-index: 950;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    background: rgba(237,234,227,.94);
-  }
-  .map-consent[hidden] { display: none; }
-  .map-consent-card {
-    width: min(460px, 100%);
-    padding: 34px;
-    border: .5px solid rgba(26,46,60,.12);
-    border-radius: 16px;
-    background: rgba(255,255,255,.92);
-    box-shadow: 0 14px 45px rgba(26,46,60,.12);
-    text-align: center;
-  }
-  .map-consent-icon {
-    display: inline-flex;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
-  .map-consent-card h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    line-height: 1.05;
-    color: var(--navy);
-    margin-bottom: 12px;
-  }
-  .map-consent-card p {
-    color: var(--text-muted);
-    font-size: 13px;
-    font-weight: 300;
-    line-height: 1.65;
-    margin-bottom: 20px;
-  }
-  .map-consent-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px 16px;
-  }
-  .map-consent-button {
-    border: 1px solid var(--navy);
-    border-radius: 22px;
-    padding: 10px 18px;
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  .map-consent-button:hover,
-  .map-consent-button:focus-visible { background: #274457; }
-  .map-consent-link {
-    color: var(--navy);
-    font-size: 12px;
-    text-underline-offset: 3px;
-  }
-
   /* Leaflet overrides */
   .leaflet-control-attribution {
     font-size: 9px;
@@ -594,9 +529,6 @@
     .map-wrap {
       height: 42vh;
     }
-    .map-consent { padding: 18px; }
-    .map-consent-card { padding: 28px 22px; }
-    .map-consent-card h2 { font-size: 1.7rem; }
     .panel {
       position: fixed;
       top: auto;
@@ -650,19 +582,7 @@
 
   <div id="leaflet-map"></div>
 
-  <section class="map-consent" id="map-consent" aria-labelledby="map-consent-title">
-    <div class="map-consent-card">
-      <span class="map-consent-icon" aria-hidden="true"><i data-lucide="map"></i></span>
-      <h2 id="map-consent-title" data-i18n-en="Load the interactive map?" data-i18n-id="Muat peta interaktif?">Load the interactive map?</h2>
-      <p data-i18n-en="The map is provided by Esri. If you load it, your IP address and technical connection data will be transmitted to Esri in the United States. Your choice applies only to this visit." data-i18n-id="Peta ini disediakan oleh Esri. Jika Anda memuatnya, alamat IP dan data koneksi teknis Anda akan dikirimkan kepada Esri di Amerika Serikat. Pilihan ini hanya berlaku untuk kunjungan ini.">The map is provided by Esri. If you load it, your IP address and technical connection data will be transmitted to Esri in the United States. Your choice applies only to this visit.</p>
-      <div class="map-consent-actions">
-        <button type="button" class="map-consent-button" id="map-load-button" data-i18n-en="Load map for this visit" data-i18n-id="Muat peta untuk kunjungan ini">Load map for this visit</button>
-        <a class="map-consent-link" href="privacy.html" data-i18n-en="Privacy Policy" data-i18n-id="Kebijakan Privasi">Privacy Policy</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="hint-pill" id="hint" hidden>
+  <div class="hint-pill" id="hint">
     <i data-lucide="hand-pointer" style="width:13px;height:13px"></i>
     Click on a village to discover more
   </div>
@@ -884,29 +804,13 @@ const map = L.map('leaflet-map', {
   attributionControl: true,
 });
 
-let esriLayer = null;
-
-function loadEsriMap() {
-  if (esriLayer) return;
-
-  const loadButton = document.getElementById('map-load-button');
-  loadButton.disabled = true;
-  loadButton.setAttribute('aria-busy', 'true');
-
-  esriLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    minZoom: 10,
-    minNativeZoom: 11,
-    maxNativeZoom: 13,
-    maxZoom: 18,
-    attribution: '© <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community',
-  }).addTo(map);
-
-  document.getElementById('map-consent').hidden = true;
-  document.getElementById('hint').hidden = false;
-  map.invalidateSize();
-}
-
-document.getElementById('map-load-button').addEventListener('click', loadEsriMap);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+  minZoom: 10,
+  minNativeZoom: 11,
+  maxNativeZoom: 13,
+  maxZoom: 18,
+  attribution: '© <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community',
+}).addTo(map);
 
 map.fitBounds([
   [-0.3433, 130.5739],
