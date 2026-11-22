@@ -233,26 +233,28 @@
     border-color: var(--border) !important;
   }
 
-  /* ── VILLAGE PIN ── */
-  .village-marker {
+  /* ── MAP PINS ── */
+  .map-pin {
+    --pin-color: var(--gold);
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
   }
-  .village-marker .v-dot {
+  .village-marker { cursor: pointer; }
+  .town-marker { --pin-color: var(--navy); }
+  .map-pin .v-dot {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: var(--gold);
+    background: var(--pin-color);
     border: 2px solid white;
     box-shadow: 0 2px 8px rgba(26,46,60,.4);
     transition: transform .18s, background .18s;
   }
-  .village-marker .v-stem {
+  .map-pin .v-stem {
     width: 1.5px;
     height: 7px;
-    background: var(--gold);
+    background: var(--pin-color);
     opacity: .7;
   }
   .village-marker:hover .v-dot,
@@ -937,7 +939,7 @@ Object.entries(villages).forEach(([id, v]) => {
   // Custom pin icon
   const icon = L.divIcon({
     className: '',
-    html: `<div class="village-marker" id="marker-${id}">
+    html: `<div class="map-pin village-marker" id="marker-${id}">
              <div class="v-dot"></div>
              <div class="v-stem"></div>
              <div class="v-label">${v.name}</div>
@@ -950,6 +952,22 @@ Object.entries(villages).forEach(([id, v]) => {
 
   marker.on('click', () => openVillage(id));
 });
+
+// Waisai town center, OpenStreetMap node 5131226922.
+L.marker([-0.4210816, 130.8229530], {
+  icon: L.divIcon({
+    className: '',
+    html: `<div class="map-pin town-marker" id="marker-waisai" role="img" aria-label="Waisai">
+             <div class="v-dot"></div>
+             <div class="v-stem"></div>
+             <div class="v-label">Waisai</div>
+           </div>`,
+    iconSize: [14, 22],
+    iconAnchor: [7, 22],
+  }),
+  interactive: false,
+  keyboard: false,
+}).addTo(map);
 
 
 // ── Mobile village list ───────────────────────────────────────────────
