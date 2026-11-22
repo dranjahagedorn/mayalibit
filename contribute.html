@@ -45,6 +45,20 @@
     max-width: 100%;
     font-weight: 500;
   }
+
+  .contact-options .contact-button {
+    padding: .5rem 1.125rem;
+    border-radius: 20px;
+    background: var(--navy);
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .contact-options .contact-button:hover { text-decoration: underline; }
+  .contact-options a:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 3px;
+  }
 </style>
 </head>
 <body data-page="contribute">
@@ -68,14 +82,15 @@
         <h2 id="whatsapp-heading">WhatsApp</h2>
         <p data-i18n-en="Send Frank at Reef Guardian a quick message if you notice something like a changed phone number or an incorrect village name."
            data-i18n-id="Kirim pesan singkat kepada Frank dari Reef Guardian jika Anda menemukan, misalnya, nomor telepon yang sudah berubah atau nama desa yang keliru.">Send Frank at Reef Guardian a quick message if you notice something like a changed phone number or an incorrect village name.</p>
-        <a href="https://wa.me/491706207045" target="_blank" rel="noopener noreferrer">+49 170 6207045</a>
+        <a class="contact-button" href="https://wa.me/491706207045" target="_blank" rel="noopener noreferrer"
+           data-i18n-en="Contact" data-i18n-id="Hubungi">Contact</a>
       </section>
 
       <section aria-labelledby="email-heading">
         <h2 id="email-heading" data-i18n-en="Email" data-i18n-id="Surel">Email</h2>
         <p data-i18n-en="Email Frank if you have a more detailed update, such as new information about a homestay or an activity."
            data-i18n-id="Kirim surel kepada Frank jika Anda ingin menyampaikan informasi yang lebih rinci, misalnya kabar terbaru tentang homestay atau kegiatan wisata.">Email Frank if you have a more detailed update, such as new information about a homestay or an activity.</p>
-        <a href="mailto:frank@reef-guardian.de">frank@reef-guardian.de</a>
+        <a href="mailto:frank@reef-guardian.de" data-i18n-en="Send an email" data-i18n-id="Kirim surel">Send an email</a>
       </section>
     </div>
   </div>
