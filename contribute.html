@@ -30,6 +30,9 @@
   }
 
   .contact-options section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin: 0;
     padding: 1.25rem;
     border: 1px solid var(--border);
@@ -37,16 +40,15 @@
     background: rgba(255,255,255,.38);
   }
 
-  .contact-options a {
+  .contact-options p { margin-bottom: .75rem; }
+
+  .contact-options .contact-button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    margin-top: .5rem;
+    margin-top: auto;
     max-width: 100%;
     font-weight: 500;
-  }
-
-  .contact-options .contact-button {
     padding: .5rem 1.125rem;
     border-radius: 20px;
     background: var(--navy);
@@ -55,7 +57,7 @@
   }
 
   .contact-options .contact-button:hover { text-decoration: underline; }
-  .contact-options a:focus-visible {
+  .contact-options .contact-button:focus-visible {
     outline: 2px solid var(--navy);
     outline-offset: 3px;
   }
@@ -90,7 +92,8 @@
         <h2 id="email-heading" data-i18n-en="Email" data-i18n-id="Surel">Email</h2>
         <p data-i18n-en="Email Frank if you have a more detailed update, such as new information about a homestay or an activity."
            data-i18n-id="Kirim surel kepada Frank jika Anda ingin menyampaikan informasi yang lebih rinci, misalnya kabar terbaru tentang homestay atau kegiatan wisata.">Email Frank if you have a more detailed update, such as new information about a homestay or an activity.</p>
-        <a href="mailto:frank@reef-guardian.de" data-i18n-en="Send an email" data-i18n-id="Kirim surel">Send an email</a>
+        <a class="contact-button" href="mailto:frank@reef-guardian.de"
+           data-i18n-en="Send an email" data-i18n-id="Kirim surel">Send an email</a>
       </section>
     </div>
   </div>
